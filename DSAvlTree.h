@@ -4,6 +4,7 @@
 
 #ifndef INC_21F_FINAL_PROJ_TEMPLATE_DSAVLTREE_H
 #define INC_21F_F
+using namespace std;
 
 template <typename T>
 class DSAvlTree{
@@ -14,7 +15,7 @@ private:
         AvlNode* left;
         AvlNode* right;
         int height;
-        AVLNode(const T& theElement, AvlNode* lt, AvlNode* rt, int h = 0): element (theElement), left(lt), right (rt), height (h) {}
+        AvlNode(const T& theElement, AvlNode* lt, AvlNode* rt, int h = 0): element (theElement), left(lt), right (rt), height (h) {}
     };
     AvlNode* root;
     void insert (AvlNode*&, const T&);
@@ -27,7 +28,7 @@ public:
     void rotateWithLeftChild (AvlNode*&)
     void rotateWithRightChild (AvlNode*&);
     void doubleWithLeftChild(AvlNode*&);
-    void rotateWithRightChild(AvlNode*&);
+    void doubleWithRightChild(AvlNode*&);
 };
 
 template <typename T>
@@ -53,9 +54,29 @@ void DSAvlTree<T>::balance (AvlNode*& t) {
     }
 }
 
-void rotateWithLeftChild (AvlNode*&)
-void rotateWithRightChild (AvlNode*&);
-void doubleWithLeftChild(AvlNode*&);
-void rotateWithRightChild(AvlNode*&);
+void rotateWithLeftChild (AvlNode*& k2) {
+    AvlNode* k1 = k2-> left;
+    k2-> left = k1-> right;
+    k1->right = k2;
+    k2->height = max (height(k2->left), height (k2->right)) + 1;
+    k1->height = max(height(k1->left), k2->height) + 1;
+    k2 = k1;
+}
+void rotateWithRightChild (AvlNode*& k2) {
+    AvlNode* k1 = k2-> right;
+    k2->right = k1 -> left;
+    k1-> left = k2;
+    k2 -> height = max (height(k2->right), height (k2->left)) + 1;
+    k1->height = max (height(k1->right), k2->height)+1;
+    k2 = k1;
+}
+void doubleWithLeftChild(AvlNode*& k3) {
+    rotateWithRightChild(k3->left);
+    rotateWithLeftChild (k3);
+}
+void doubleWithRightChild(AvlNode*& k3) {
+    rotateWithLeftChild(k3->right);
+    rotateWithRightChild (k3);
+}
 
 #endif //INC_21F_FINAL_PROJ_TEMPLATE_DSAVLTREE_H

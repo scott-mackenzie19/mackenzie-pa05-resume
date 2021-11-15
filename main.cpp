@@ -15,7 +15,6 @@ using namespace rapidjson;
 
 int main() {
     string path = "arch";
-    std::cout << "Hello, World!" << std::endl;
     rwfile fileList;
     fileList.print_filenames(path);
     return 0;
