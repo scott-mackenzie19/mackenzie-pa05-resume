@@ -18,23 +18,22 @@ private:
         AvlNode(const T& theElement, AvlNode* lt, AvlNode* rt, int h = 0): element (theElement), left(lt), right (rt), height (h) {}
     };
     AvlNode* root;
-    void insert (AvlNode*&, const T&);
-    bool contains (AvlNode* c, int val) {
+    void insert1 (AvlNode*&, const T&);
+    bool contains (AvlNode* c, T val) {
         if (c == nullptr) return false;
-        else if (c->data == element) return true;
-        else if (val < c-> data) return contains (c-> left, val);
+        else if (c->element == val) return true;
+        else if (val < c-> element) return contains (c-> left, val);
         else return contains (c-> right, val);
     }
-    DSAvlTree(const DSAvlTree<T>&) {}
-    DSAvlTree<T>& operator=(const DSAvlTree<T>&) {}
+    DSAvlTree(const DSAvlTree<T>& rhs) {}
+    DSAvlTree<T>& operator=(const DSAvlTree<T>& rhs) {}
 public:
     DSAvlTree(): root(nullptr) {}
-    DSAvlTree(const DSAvlTree& rhs): root(nullptr) { *this = rhs}
     ~DSAvlTree() {makeEmpty(root);}
     void makeEmpty(AvlNode*);
-    AvlNode* insert (const T& x) {insert (x, root);}
+    void insert (const T& x) {insert1 (root, x);}
     void balance (AvlNode*&);
-    void rotateWithLeftChild (AvlNode*&)
+    void rotateWithLeftChild (AvlNode*&);
     void rotateWithRightChild (AvlNode*&);
     void doubleWithLeftChild(AvlNode*&);
     void doubleWithRightChild(AvlNode*&);
@@ -57,13 +56,6 @@ int DSAvlTree<T>::height (AvlNode* n) {
     return n->height;
 }
 
-template <typename T>
-AvlNode* DSAvlTree<T>::insert (AvlNode*& t, const T& x) {
-    if (contains(x)) return t;
-    if (t==nullptr) t = new AvlNode (x, nullptr, nullptr);
-    else if (x < t->element) insert (x, t-> left);
-    else if (t -> element < x) insert (x, t -> right);
-}
 
 template <typename T>
 void DSAvlTree<T>::balance (AvlNode*& t) {
@@ -80,7 +72,7 @@ void DSAvlTree<T>::balance (AvlNode*& t) {
 }
 
 template <typename T>
-void rotateWithLeftChild (AvlNode*& k2) {
+void DSAvlTree<T>::rotateWithLeftChild (AvlNode*& k2) {
     AvlNode* k1 = k2-> left;
     k2-> left = k1-> right;
     k1->right = k2;
@@ -89,7 +81,7 @@ void rotateWithLeftChild (AvlNode*& k2) {
     k2 = k1;
 }
 template <typename T>
-void rotateWithRightChild (AvlNode*& k2) {
+void DSAvlTree<T>::rotateWithRightChild (AvlNode*& k2) {
     AvlNode* k1 = k2-> right;
     k2->right = k1 -> left;
     k1-> left = k2;
@@ -98,12 +90,12 @@ void rotateWithRightChild (AvlNode*& k2) {
     k2 = k1;
 }
 template <typename T>
-void doubleWithLeftChild(AvlNode*& k3) {
+void DSAvlTree<T>::doubleWithLeftChild(AvlNode*& k3) {
     rotateWithRightChild(k3->left);
     rotateWithLeftChild (k3);
 }
 template <typename T>
-void doubleWithRightChild(AvlNode*& k3) {
+void DSAvlTree<T>::doubleWithRightChild(AvlNode*& k3) {
     rotateWithLeftChild(k3->right);
     rotateWithRightChild (k3);
 }
@@ -112,6 +104,14 @@ template <typename T>
 int DSAvlTree<T>::max (int a, int b) {
     if (a>=b) return a;
     else return b;
+}
+
+template<typename T>
+void DSAvlTree<T>::insert1(AvlNode*& t, const T& x) {
+    if (contains(x)) return;
+    if (t==nullptr) t = new AvlNode (x, nullptr, nullptr);
+    else if (x < t->element) insert1 (t-> left, x);
+    else if (t -> element < x) insert1 (t -> right, x);
 }
 
 #endif //INC_21F_FINAL_PROJ_TEMPLATE_DSAVLTREE_H
