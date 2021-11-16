@@ -1,5 +1,5 @@
 //
-// Created by dalla on 11/14/2021.
+// Created by Scott Mackenzie on 11/14/2021.
 //
 
 #ifndef INC_21F_FINAL_PROJ_TEMPLATE_ARTICLE_H

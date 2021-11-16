@@ -3,6 +3,8 @@
 //Below file created to parse strings and store in article vector.
 
 #include "rwfile.h"
+#include <cctype>
+#include <bits/stdc++.h>
 using namespace std;
 namespace fs = std::filesystem;
 using namespace rapidjson;
@@ -16,6 +18,8 @@ void rwfile::parse(string filename) {
     string paperID = document["uuid"].GetString();
     string titleName = document["title"].GetString();
     string body_text = document["text"].GetString();
+    transform(body_text.begin(), body_text.end(), body_text.begin(), ::tolower);
+    cout << body_text << endl;
     art1.setID(paperID);
     art1.setTitle(titleName);
     art1.setBody(body_text);
@@ -23,7 +27,7 @@ void rwfile::parse(string filename) {
     int counter = 1;
     for (rapidjson::Value::ConstValueIterator itr = attributes.Begin(); itr != attributes.End(); ++itr) {
         const rapidjson::Value& attribute = *itr;
-        cout<<"Author "<<counter<<endl;
+       // cout<<"Author "<<counter<<endl;
         for (rapidjson::Value::ConstMemberIterator itr2 = attribute.MemberBegin(); itr2 != attribute.MemberEnd(); ++itr2) {
             if(itr2->name.IsString() && itr2->value.IsString()){
                 if(strlen(itr2 -> value.GetString()) > 0)

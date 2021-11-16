@@ -15,7 +15,7 @@ namespace fs = std::filesystem;
 using namespace rapidjson;
 
 int main(int argc, char** argv) {
-    if (argc == 1) runCatchTests();
+    if (argc == 0) runCatchTests();
     else {
         string path = "arch";
         rwfile fileList;
