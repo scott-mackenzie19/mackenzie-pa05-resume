@@ -9,13 +9,17 @@
 #include <filesystem>
 #include <string>
 #include "rwfile.h"
+#include "catch_setup.h"
 using namespace std;
 namespace fs = std::filesystem;
 using namespace rapidjson;
 
-int main() {
-    string path = "arch";
-    rwfile fileList;
-    fileList.print_filenames(path);
-    return 0;
+int main(int argc, char** argv) {
+    if (argc == 1) runCatchTests();
+    else {
+        string path = "arch";
+        rwfile fileList;
+        fileList.print_filenames(path);
+        return 0;
+    }
 }
