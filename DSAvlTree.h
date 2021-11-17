@@ -32,7 +32,7 @@ public:
     DSAvlTree(): root(nullptr) {}
     ~DSAvlTree() {makeEmpty(root);}
     void makeEmpty(AvlNode*);
-    void insert (const T& x) {insertPrivate (root, x);}
+    T& insert (const T& x) {return insertPrivate (root, x);}
     void balance (AvlNode*&);
     void rotateWithLeftChild (AvlNode*&);
     void rotateWithRightChild (AvlNode*&);

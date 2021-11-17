@@ -4,7 +4,7 @@
 
 #include "rwfile.h"
 #include <cctype>
-#include <bits/stdc++.h>
+//#include <bits/stdc++.h>
 
 using namespace std;
 namespace fs = std::filesystem;
