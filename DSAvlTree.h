@@ -5,6 +5,7 @@
 #ifndef INC_21F_FINAL_PROJ_TEMPLATE_DSAVLTREE_H
 #define INC_21F_F
 using namespace std;
+#include <iostream>
 
 template <typename T>
 class DSAvlTree{
@@ -18,12 +19,12 @@ private:
         AvlNode(const T& theElement, AvlNode* lt, AvlNode* rt, int h = 0): element (theElement), left(lt), right (rt), height (h) {}
     };
     AvlNode* root;
-    void insert1 (AvlNode*&, const T&);
-    bool contains (AvlNode* c, T val) {
+    T& insertPrivate (AvlNode*&, const T&);
+    bool containsPrivate (AvlNode* c, T val) {
         if (c == nullptr) return false;
         else if (c->element == val) return true;
-        else if (val < c-> element) return contains (c-> left, val);
-        else return contains (c-> right, val);
+        else if (val < c-> element) return containsPrivate (c-> left, val);
+        else return containsPrivate (c-> right, val);
     }
     DSAvlTree(const DSAvlTree<T>& rhs) {}
     DSAvlTree<T>& operator=(const DSAvlTree<T>& rhs) {}
@@ -31,7 +32,7 @@ public:
     DSAvlTree(): root(nullptr) {}
     ~DSAvlTree() {makeEmpty(root);}
     void makeEmpty(AvlNode*);
-    void insert (const T& x) {insert1 (root, x);}
+    void insert (const T& x) {insertPrivate (root, x);}
     void balance (AvlNode*&);
     void rotateWithLeftChild (AvlNode*&);
     void rotateWithRightChild (AvlNode*&);
@@ -39,7 +40,7 @@ public:
     void doubleWithRightChild(AvlNode*&);
     int height (AvlNode*);
     int max (int, int);
-    bool contains (T val) {return contains (root, val);}
+    bool contains (T val) {return containsPrivate (root, val);}
 };
 
 template <typename T>
@@ -55,7 +56,6 @@ int DSAvlTree<T>::height (AvlNode* n) {
     if (n == nullptr) return 0;
     return n->height;
 }
-
 
 template <typename T>
 void DSAvlTree<T>::balance (AvlNode*& t) {
@@ -79,7 +79,10 @@ void DSAvlTree<T>::rotateWithLeftChild (AvlNode*& k2) {
     k2->height = max (height(k2->left), height (k2->right)) + 1;
     k1->height = max(height(k1->left), k2->height) + 1;
     k2 = k1;
+    k1->height =max(height(k1->left), height(k1->right)) + 1;
+    k2->height = max(height(k2->left), height(k2->right)) +1;
 }
+
 template <typename T>
 void DSAvlTree<T>::rotateWithRightChild (AvlNode*& k2) {
     AvlNode* k1 = k2-> right;
@@ -88,6 +91,8 @@ void DSAvlTree<T>::rotateWithRightChild (AvlNode*& k2) {
     k2 -> height = max (height(k2->right), height (k2->left)) + 1;
     k1->height = max (height(k1->right), k2->height)+1;
     k2 = k1;
+    k1->height =max(height(k1->left), height(k1->right)) + 1;
+    k2->height = max(height(k2->left), height(k2->right)) +1;
 }
 template <typename T>
 void DSAvlTree<T>::doubleWithLeftChild(AvlNode*& k3) {
@@ -107,11 +112,23 @@ int DSAvlTree<T>::max (int a, int b) {
 }
 
 template<typename T>
-void DSAvlTree<T>::insert1(AvlNode*& t, const T& x) {
-    if (contains(x)) return;
-    if (t==nullptr) t = new AvlNode (x, nullptr, nullptr);
-    else if (x < t->element) insert1 (t-> left, x);
-    else if (t -> element < x) insert1 (t -> right, x);
+T& DSAvlTree<T>::insertPrivate(AvlNode*& t, const T& x) {
+    if (contains(x)) return x;
+    if (t==nullptr) {
+        t = new AvlNode (x, nullptr, nullptr);
+        return t->element;
+    }
+    else if (x < t->element) {
+        int& temp = insertPrivate (t->left, x);
+        balance (t);
+        return temp;
+    }
+    else if (t -> element < x) {
+       int& temp= insertPrivate (t -> right, x);
+       balance (t);
+       return temp;
+    }
+    t->height = 1 + max (height (t->left), height (t-> right));
 }
 
 #endif //INC_21F_FINAL_PROJ_TEMPLATE_DSAVLTREE_H
