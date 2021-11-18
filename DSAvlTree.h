@@ -15,10 +15,11 @@ private:
         AvlNode* left;
         AvlNode* right;
         int height;
+        AvlNode(const K& theKey, AvlNode* lt, AvlNode* rt, int h = 0): key(theKey), left(lt), right (rt), height (h) {}
         AvlNode(const K& theKey, const V& theVal, AvlNode* lt, AvlNode* rt, int h = 0): key(theKey), val(theVal), left(lt), right (rt), height (h) {}
     };
     AvlNode* root;
-    K& insertPrivate (AvlNode*&, const K&, const V&);
+    V& insertPrivate (AvlNode*&, const K&);
     bool containsPrivate (AvlNode* c, K element) {
         if (c == nullptr) return false;
         else if (c->key == element) return true;
@@ -31,7 +32,7 @@ public:
     DSAvlTree(): root(nullptr) {}
     ~DSAvlTree() {makeEmpty(root);}
     void makeEmpty(AvlNode*);
-    K& insert (const K& x, const V& y) {return insertPrivate (root, x, y);}
+    V& insert (const K& x) {return insertPrivate (root, x);}
     void balance (AvlNode*&);
     void rotateWithLeftChild (AvlNode*&);
     void rotateWithRightChild (AvlNode*&);
@@ -110,28 +111,30 @@ int DSAvlTree<K, V>::max (int a, int b) {
     else return b;
 }
 
-// help w this
+// fix errors in compile
+// map of trees or tree of maps - basic data structure?
+// how do hash tables come into play with persons and orgs
+
 template<typename K, typename V>
-K& DSAvlTree<K, V>::insertPrivate(AvlNode*& t, const K& x, const V& y) {
-    if (contains(x)) {
-        // add y to that x value
-        return x;
+V& DSAvlTree<K, V>::insertPrivate(AvlNode*& t, const K& x) {
+    if (t==nullptr) {
+        t = new AvlNode (x, nullptr, nullptr);
+        t->height = 1 + max (height (t->left), height (t-> right));
+        return t->val;
     }
-    else if (t==nullptr) {
-        t = new AvlNode (x, y, nullptr, nullptr);
-        return t->element;
-    }
-    else if (x < t->element) {
-        int& temp = insertPrivate (t->left, x, y);
+    else if (x < t->key) {
+        V& temp = insertPrivate (t->left, x);
         balance (t);
+        t->height = 1 + max (height (t->left), height (t-> right));
         return temp;
     }
-    else if (t -> element < x) {
-       int& temp= insertPrivate (t -> right, x, y);
+    else if (t -> key < x) {
+       V& temp= insertPrivate (t -> right, x);
        balance (t);
+        t->height = 1 + max (height (t->left), height (t-> right));
        return temp;
     }
-    t->height = 1 + max (height (t->left), height (t-> right));
+    else return t->val;
 }
 
 #endif //INC_21F_FINAL_PROJ_TEMPLATE_DSAVLTREE_H
