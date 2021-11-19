@@ -4,6 +4,7 @@
 
 #ifndef INC_21F_FINAL_PROJ_TEMPLATE_DSAVLTREE_H
 #define INC_21F_F
+#include <iostream>
 
 template <typename K, typename V>
 class DSAvlTree{
@@ -120,6 +121,7 @@ V& DSAvlTree<K, V>::insertPrivate(AvlNode*& t, const K& x) {
     if (t==nullptr) {
         t = new AvlNode (x, nullptr, nullptr);
         t->height = 1 + max (height (t->left), height (t-> right));
+        std::cout << t->key << std::endl;
         return t->val;
     }
     else if (x < t->key) {
