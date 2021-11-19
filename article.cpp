@@ -41,6 +41,10 @@ void article::addOrganizations(string& word) {
 
 }
 
+bool article::operator==(const article &file) {
+    return (this->ID == file.ID);
+}
+
 
 
 

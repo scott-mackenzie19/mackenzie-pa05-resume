@@ -26,6 +26,7 @@ public:
     string& getID();
     string& getTitle();
     string& getBody();
+    bool operator ==(const article& file);
 
 };
 

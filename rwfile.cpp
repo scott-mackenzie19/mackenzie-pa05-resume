@@ -50,7 +50,7 @@ void rwfile::populate_tree(const string& path) {
             parse(filename);
         }
     }
-    if (wordTree.contains("today")) {
+    if (wordTree.contains("beech")) {
         cout << "good" << endl;
     }
 }
@@ -66,7 +66,18 @@ void rwfile::tokenize_file(article file) {
             getline(ls, word, ' ');
             Porter2Stemmer::trim(word);
             Porter2Stemmer::stem(word);
-            wordTree.insert(word).emplace_back(file);
+            vector<article> * ptr= &wordTree.insert(word);
+            if (ptr->empty()) {
+                ptr->emplace_back(file);
+            }
+            else {
+                cout << ptr->size() << endl;
+                if (std::find(ptr->begin(), ptr->end(), file) == ptr->end()) {
+                    //if find function returns last ID, file not found, and file appended
+                    ptr->emplace_back(file);
+                }
+            }
+
         }
     }
 
