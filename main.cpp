@@ -16,10 +16,10 @@ using namespace rapidjson;
 
 int main(int argc, char** argv) {
     //if (argc == 1) runCatchTests();
-    //else {
+    // else {
         string path = "arch";
-        rwfile fileList;
-        fileList.print_filenames(path);
+        rwfile data;
+        data.populate_tree(path);
         return 0;
-    //}
+   // }
 }

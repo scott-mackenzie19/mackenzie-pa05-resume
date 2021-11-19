@@ -24,3 +24,23 @@ void article::addPeople(string Person) {
 
 }
 
+string& article:: getID() {
+    return this->ID;
+}
+
+string &article::getTitle() {
+    return this->titleName;
+}
+
+string &article::getBody() {
+    return this->body;
+}
+
+void article::addOrganizations(string& word) {
+    Organizations.emplace_back(word);
+
+}
+
+
+
+

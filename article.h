@@ -15,11 +15,17 @@ private :
     string titleName;
     string body;
     vector<string> People;
+    vector<string> Organizations;
+
 public:
     void setID(string ID1);
     void setTitle(string title);
     void setBody(string body1);
     void addPeople(string Person);
+    void addOrganizations(string&);
+    string& getID();
+    string& getTitle();
+    string& getBody();
 
 };
 

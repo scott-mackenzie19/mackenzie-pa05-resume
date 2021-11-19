@@ -4,15 +4,16 @@
 
 #include "rwfile.h"
 #include <cctype>
-//#include <bits/stdc++.h>
-
 using namespace std;
 namespace fs = std::filesystem;
 using namespace rapidjson;
 
-void rwfile::parse(string filename) {
-    article art1;
-    ifstream ifss(filename);
+void rwfile::parse(const string& filename) {
+    ///
+    ///used TA Christian's reference
+    ///
+    article art1; //article object created
+    ifstream ifss(filename); //filestream created from filename
     IStreamWrapper isw(ifss);
     Document document;
     document.ParseStream(isw);
@@ -20,11 +21,12 @@ void rwfile::parse(string filename) {
     string titleName = document["title"].GetString();
     string body_text = document["text"].GetString();
     transform(body_text.begin(), body_text.end(), body_text.begin(), ::tolower);
-    cout << body_text << endl;
-    art1.setID(paperID);
-    art1.setTitle(titleName);
-    art1.setBody(body_text);
+    //cout << body_text << endl;
+    art1.setID(paperID); //ID set in article object
+    art1.setTitle(titleName); //title set in article object
+    art1.setBody(body_text); //body set in article object
     const rapidjson::Value& attributes = document["entities"]["persons"];
+    const rapidjson::Value& holder = document["organizations"];
     int counter = 1;
     for (rapidjson::Value::ConstValueIterator itr = attributes.Begin(); itr != attributes.End(); ++itr) {
         const rapidjson::Value& attribute = *itr;
@@ -38,14 +40,34 @@ void rwfile::parse(string filename) {
         counter ++;
     }
     articles.push_back(art1);
+    tokenize_file(art1);
 }
 
-void rwfile::print_filenames(string path) {
+void rwfile::populate_tree(const string& path) {
     for (const auto& dirEntry : fs::recursive_directory_iterator(path)){
         if(!is_directory(dirEntry)){
             string filename = dirEntry.path().c_str();
             parse(filename);
         }
     }
-    cout << articles.size() << endl;
+    if (wordTree.contains("today")) {
+        cout << "good" << endl;
+    }
+}
+
+void rwfile::tokenize_file(article file) {
+    stringstream ss(file.getBody());
+    while (ss.good()) {
+        string line;
+        getline(ss, line);
+        stringstream ls(line);
+        while (ls.good()) {
+            string word;
+            getline(ls, word, ' ');
+            Porter2Stemmer::trim(word);
+            Porter2Stemmer::stem(word);
+            wordTree.insert(word).emplace_back(file);
+        }
+    }
+
 }

@@ -11,21 +11,26 @@
 #include <filesystem>
 #include <iostream>
 #include <fstream>
+#include "DSAvlTree.h"
 #include "article.h"
 #include "include/rapidjson/document.h"
 #include "include/rapidjson/istreamwrapper.h"
 #include "include/rapidjson/stringbuffer.h"
 #include "article.h"
+#include "word.h"
+#include "porter2_stemmer.h"
 
 using namespace std;
 
 class rwfile {
 private:
     vector<article> articles;
+    DSAvlTree<string, vector<article>> wordTree;
 
 public:
-    void print_filenames(string path);
-    void parse(string filename);
+    void populate_tree(const string& path);
+    void parse(const string& filename);
+    void tokenize_file(article file);
 };
 
 
