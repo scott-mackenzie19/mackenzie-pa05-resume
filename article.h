@@ -18,9 +18,9 @@ private :
     vector<string> Organizations;
 
 public:
-    void setID(string ID1);
-    void setTitle(string title);
-    void setBody(string body1);
+    void setID(string& ID1);
+    void setTitle(string& title);
+    void setBody(string& body1);
     void addPeople(string Person);
     void addOrganizations(string&);
     string& getID();

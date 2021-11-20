@@ -4,17 +4,17 @@
 
 #include "article.h"
 
-void article::setID(string ID1) {
+void article::setID(string& ID1) {
     this->ID = ID1;
 
 }
 
-void article::setTitle(string title) {
+void article::setTitle(string& title) {
     this->titleName = title;
 
 }
 
-void article::setBody(string body1) {
+void article::setBody(string& body1) {
     this->body = body1;
 
 }

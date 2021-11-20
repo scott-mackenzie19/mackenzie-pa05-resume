@@ -16,6 +16,7 @@
 #include "include/rapidjson/document.h"
 #include "include/rapidjson/istreamwrapper.h"
 #include "include/rapidjson/stringbuffer.h"
+#include "include/rapidjson/filereadstream.h"
 #include "article.h"
 #include "word.h"
 #include "porter2_stemmer.h"
@@ -30,7 +31,8 @@ private:
 public:
     void populate_tree(const string& path);
     void parse(const string& filename);
-    void tokenize_file(article file);
+    void tokenize_file(article& file);
+    DSAvlTree<string, vector<article>>& getTree();
 };
 
 

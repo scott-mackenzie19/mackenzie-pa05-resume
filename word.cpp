@@ -4,7 +4,7 @@
 
 #include "word.h"
 
-void word::push_back(article article1) {
+void word::push_back(article& article1) {
     if (articles_contains(article1)) { //if articles vector contains article, file returns as it doesn't need to append
         return;
     }

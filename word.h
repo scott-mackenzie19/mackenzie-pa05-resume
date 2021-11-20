@@ -15,7 +15,7 @@ class word {
 public:
     vector<article> articles;
     string word;
-    void push_back(article article1);
+    void push_back(article& article1);
     bool articles_contains(article& file);
 
 
