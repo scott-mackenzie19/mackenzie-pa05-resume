@@ -30,3 +30,11 @@ int main(int argc, char** argv) {
         return 0;
     }
 }
+
+/**TO DO:
+ * relevancy ranking algorithm: term-frequency/inverse document frequency
+ * hash maps
+ * putting person and orgs into hash maps
+ * boolean command args
+ * Doxygen Documentation, UML Class Diagram
+ */

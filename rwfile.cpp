@@ -4,6 +4,7 @@
 
 #include "rwfile.h"
 #include <cctype>
+#include <sstream>
 using namespace std;
 namespace fs = std::filesystem;
 using namespace rapidjson;
@@ -72,7 +73,7 @@ void rwfile::tokenize_file(article& file) {
                 ptr->emplace_back(file);
             }
             else {
-                cout << ptr->size() << endl;
+               // cout << ptr->size() << endl;
                 if (std::find(ptr->begin(), ptr->end(), file) == ptr->end()) {
                     //if find function returns last ID, file not found, and file appended
                     ptr->emplace_back(file);
@@ -81,7 +82,6 @@ void rwfile::tokenize_file(article& file) {
 
         }
     }
-
 }
 
 DSAvlTree<string, vector<article>> &rwfile::getTree() {
