@@ -7,6 +7,7 @@
 #include <fstream>
 #include <dirent.h>
 #include <filesystem>
+#include "porter2_stemmer.h"
 #include <string>
 #include "rwfile.h"
 #include "catch_setup.h"
@@ -19,11 +20,15 @@ int main(int argc, char** argv) {
     if (argc == 1) runCatchTests();
     else {
         string path = argv[1];
+        cout << argv[1] << endl;
         rwfile data;
         data.populate_tree(path);
         vector<article> ::iterator ptr;
+        string word = argv[2];
+        Porter2Stemmer::trim(word);
+        Porter2Stemmer::stem(word);
         int count = 1;
-        for (ptr = data.getTree().insert(argv[2]).begin(); ptr < data.getTree().insert(argv[2]).end(); ptr++) {
+        for (ptr = data.getTree().insert(word).begin(); ptr < data.getTree().insert(word).end(); ptr++) {
             cout << endl << "Search Result " << count << ": " << ptr->getTitle() << endl << endl;
             count++;
         }

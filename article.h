@@ -16,6 +16,7 @@ private :
     string body;
     vector<string> People;
     vector<string> Organizations;
+    int numOccurences;
 
 public:
     void setID(string& ID1);
