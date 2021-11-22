@@ -7,6 +7,7 @@
 using namespace std;
 namespace fs = std::filesystem;
 using namespace rapidjson;
+#include <sstream>
 
 void rwfile::parse(const string& filename) {
     ///
