@@ -21,7 +21,6 @@ void rwfile::parse(const string& filename) {
     string paperID = document["uuid"].GetString();
     string titleName = document["title"].GetString();
     string body_text = document["text"].GetString();
-    transform(body_text.begin(), body_text.end(), body_text.begin(), ::tolower);
     art1.setID(paperID); //ID set in article object
     art1.setTitle(titleName); //title set in article object
     art1.setBody(body_text); //body set in article object
@@ -51,9 +50,6 @@ void rwfile::populate_tree(const string& path) {
             parse(filename);
         }
     }
-    if (wordTree.contains("beech")) {
-        cout << "good" << endl;
-    }
 }
 
 void rwfile::tokenize_file(article& file) {
@@ -64,6 +60,7 @@ void rwfile::tokenize_file(article& file) {
         stringstream ls(line);
         while (ls.good()) {
             string word;
+            string temp;
             getline(ls, word, ' ');
             Porter2Stemmer::trim(word);
             Porter2Stemmer::stem(word);
@@ -72,7 +69,7 @@ void rwfile::tokenize_file(article& file) {
                 ptr->emplace_back(file);
             }
             else {
-                cout << ptr->size() << endl;
+                //cout << ptr->size() << endl;
                 if (std::find(ptr->begin(), ptr->end(), file) == ptr->end()) {
                     //if find function returns last ID, file not found, and file appended
                     ptr->emplace_back(file);
