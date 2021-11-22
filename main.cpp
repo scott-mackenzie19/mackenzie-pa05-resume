@@ -29,7 +29,7 @@ int main(int argc, char** argv) {
         Porter2Stemmer::stem(word);
         int count = 1;
         for (ptr = data.getTree().insert(word).begin(); ptr < data.getTree().insert(word).end(); ptr++) {
-            cout << endl << "Search Result " << count << ": " << ptr->getTitle() << endl << endl;
+            cout << endl << "Search Result " << count << ": " << ptr->getID() << endl << endl;
             count++;
         }
         return 0;
