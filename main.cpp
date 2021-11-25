@@ -39,7 +39,8 @@ int main(int argc, char** argv) {
 /**TO DO:
  * change path so it can also accept folders of folders
  *
- * change avl tree value from vector to hash map where key is object id and value is full object
+ * change avl tree value from vector to hash map where key is object id and value is full object. also maybe
+ * try to return by reference in some places and see if that speeds things up
  *
  * add a word count property to the object so when a user types a word and word is found in doc
  * the parser keeps going to count how many times
