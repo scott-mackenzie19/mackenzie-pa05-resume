@@ -5,14 +5,21 @@
 #ifndef INC_21F_FINAL_PROJ_TEMPLATE_DSHASH_H
 #define INC_21F_FINAL_PROJ_TEMPLATE_DSHASH_H
 
-template <typename K>
+#define TABLE_SIZE 300
+#include <string>
+
 struct KeyHash {
-    unsigned long operator()(const K& key) const {
-        return reinterpret_cast<unsigned long>(key) % TABLE_SIZE;
+    int operator()(const std::string key) const {
+        int ascii = 0;
+        for (int i = 0; i < key.length(); i++) {
+            char x = key.at(i);
+            ascii+=int(x);
+        }
+        return ascii % TABLE_SIZE;
     }
 };
 
-template <typename K, typename V, typename F = KeyHash<K>>
+template <typename K, typename V, typename F = KeyHash>
 class DSHash {
 private:
     class HashNode {
@@ -25,7 +32,7 @@ private:
         K getKey() const{
             return key;
         }
-        V& getValue() const{
+        V& getValue() {
             return value;
         }
         void setValue (V value) {
@@ -38,15 +45,15 @@ private:
             HashNode::next = next;
         }
     };
-    HashNode <K, V> **table;
+    HashNode **table;
     F hashFunc;
 public:
-    DSHash() { table = new [] HashNode <K, V> *[TABLE_SIZE](); }
+    DSHash() { table = new HashNode *[TABLE_SIZE](); }
     ~DSHash() {
         for (int i = 0; i < TABLE_SIZE; i++) {
-            HashNode <K, V> *entry = table[i];
+            HashNode *entry = table[i];
             while (entry != nullptr) {
-                HashNode <K, V> *prev = entry;
+                HashNode *prev = entry;
                 entry = entry->getNext();
                 delete prev;
             }
@@ -54,12 +61,12 @@ public:
         }
         delete [] table;
     }
-    bool get (const K& key, V& value) {
+    bool get (const K& key) {
         unsigned long hashValue = hashFunc (key);
-        HashNode <K, V> *entry = table [hashValue];
+        HashNode *entry = table [hashValue];
         while (entry!= nullptr) {
             if (entry->getKey() == key) {
-                value = entry->getValue();
+                //value = entry->getValue();
                 return true;
             }
             entry = entry->getNext();
@@ -68,8 +75,8 @@ public:
     }
     void put (const K& key, const V& value) {
         unsigned long hashValue = hashFunc (key);
-        HashNode <K, V> *prev = nullptr;
-        HashNode <K, V> *entry = table [hashValue];
+        HashNode *prev = nullptr;
+        HashNode *entry = table [hashValue];
 
         while (entry!=nullptr && entry->getKey() !=key) {
             prev = entry;
@@ -77,7 +84,7 @@ public:
         }
 
         if (entry == nullptr) {
-            entry = new HashNode<K, V>(key, value);
+            entry = new HashNode(key, value);
             if (prev == nullptr)
                 table[hashValue] = entry;
             else
@@ -88,8 +95,8 @@ public:
 
     void remove (const K& key) {
         unsigned long hashValue = hashFunc (key);
-        HashNode <K, V> *prev = nullptr;
-        HashNode <K, V> *entry = table [hashValue];
+        HashNode *prev = nullptr;
+        HashNode *entry = table [hashValue];
 
         while (entry!=nullptr && entry->getKey() != key) {
             prev = entry;
@@ -107,7 +114,7 @@ public:
 // https://stackoverflow.com/questions/25584065/hash-map-direct-access-operator
     V& operator [] (const K& key) {
         unsigned long hashValue = hashFunc(key);
-        HashNode<K, V> *entry = table[hashValue];
+        HashNode *entry = table[hashValue];
         while (entry != nullptr) {
             if (entry->getKey() == key) {
                 return entry->getValue();
