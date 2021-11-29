@@ -23,7 +23,7 @@ public:
     void setID(string&);
     void setTitle(string&);
     void setBody(string&);
-    void addPeople(string&, article);
+    void addPeople(string, article);
     void addOrg(string&, article);
     string& getID();
     string& getTitle();

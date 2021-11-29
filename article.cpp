@@ -19,7 +19,7 @@ void article::setBody(string& body1) {
 
 }
 
-void article::addPeople(string& Person, article Art) {
+void article::addPeople(string Person, article Art) {
     People.put(Person, Art);
 }
 

@@ -7,6 +7,7 @@
 
 #define TABLE_SIZE 300
 #include <string>
+#include <stdexcept>
 
 // note on hash map: key MUST BE string, otherwise hash function will not work
 
