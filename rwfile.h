@@ -20,19 +20,20 @@
 #include "article.h"
 #include "word.h"
 #include "porter2_stemmer.h"
+#include <unordered_map>
 
 using namespace std;
 
 class rwfile {
 private:
     vector<article> articles;
-    DSAvlTree<string, vector<article>> wordTree;
+    DSAvlTree<string, unordered_map<string, article>> wordTree;
 
 public:
     void populate_tree(const string&);
     void parse(const string&);
     void tokenize_file(article&);
-    DSAvlTree<string, vector<article>>& getTree();
+    DSAvlTree<string, unordered_map<string, article>>& getTree();
 };
 
 

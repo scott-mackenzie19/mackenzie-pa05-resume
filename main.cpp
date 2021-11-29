@@ -22,14 +22,15 @@ int main(int argc, char** argv) {
         string path = argv[1];
         rwfile data;
         data.populate_tree(path);
-        vector<article> ::iterator ptr;
+        unordered_map<string, article> ::iterator ptr;
         string word = argv[2];
         // we don't want boolean inquiries ('AND', 'NOT') to be put to lower which i think this function does?
-        //Porter2Stemmer::trim(word);
+        Porter2Stemmer::trim(word);
         Porter2Stemmer::stem(word);
+        unordered_map<string, article> temp = data.getTree().insert(word);
         int count = 1;
-        for (ptr = data.getTree().insert(word).begin(); ptr < data.getTree().insert(word).end(); ptr++) {
-            cout << endl << "Search Result " << count << ": " << ptr->getID() << endl << endl;
+        for (ptr = temp.begin(); ptr != temp.end(); ptr++) {
+            cout << endl << "Search Result " << count << ": " << ptr->second.getTitle() << endl << endl;
             count++;
         }
         return 0;

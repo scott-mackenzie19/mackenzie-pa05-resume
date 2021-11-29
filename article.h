@@ -15,15 +15,16 @@ private :
     string ID;
     string titleName;
     string body;
-    DSHash<string, article> People;
-    DSHash<string, article> Organizations;
-    int numOccurences;
+    //DSHash<string, article> People66;
+    //DSHash<string, article> Organizations;
+    int numOccurences = 0;
 
 public:
     void setID(string&);
     void setTitle(string&);
     void setBody(string&);
-    void addPeople(string, article);
+    void increment();
+    void addPeople(string&, article);
     void addOrg(string&, article);
     string& getID();
     string& getTitle();

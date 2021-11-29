@@ -19,12 +19,12 @@ void article::setBody(string& body1) {
 
 }
 
-void article::addPeople(string Person, article Art) {
-    People.put(Person, Art);
+void article::addPeople(string& Person, article Art) {
+    //People.put(Person, Art);
 }
 
 void article::addOrg(string& Organization, article Art) {
-    People.put(Organization, Art);
+   // People.put(Organization, Art);
 }
 
 string& article:: getID() {
@@ -45,4 +45,9 @@ int &article::getNumOccurences() {
 
 bool article::operator==(const article &file) {
     return (this->ID == file.ID);
+}
+
+void article::increment() {
+    numOccurences++;
+
 }

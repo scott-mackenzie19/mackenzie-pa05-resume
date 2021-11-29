@@ -10,10 +10,10 @@
 #include <stdexcept>
 
 // note on hash map: key MUST BE string, otherwise hash function will not work
-
+template <typename K>
 struct KeyHash {
     // https://stackoverflow.com/questions/6709795/converting-string-to-ascii
-    int operator()(const std::string key) const {
+    int operator()(const K& key) const {
         int ascii = 0;
         for (int i = 0; i < key.length(); i++) {
             char x = key.at(i);
@@ -23,7 +23,7 @@ struct KeyHash {
     }
 };
 
-template <typename K, typename V, typename F = KeyHash>
+template <typename K, typename V, typename F = KeyHash<K>>
 class DSHash {
 private:
     class HashNode {
@@ -52,7 +52,9 @@ private:
     HashNode **table;
     F hashFunc;
 public:
-    DSHash() { table = new HashNode *[TABLE_SIZE](); }
+    DSHash() {
+        table = new HashNode *[TABLE_SIZE]();
+    }
     ~DSHash() {
         for (int i = 0; i < TABLE_SIZE; i++) {
             HashNode *entry = table[i];
@@ -63,7 +65,7 @@ public:
             }
             table[i] = nullptr;
         }
-        delete [] table;
+        delete[] table;
     }
     bool get (const K& key) {
         unsigned long hashValue = hashFunc (key);

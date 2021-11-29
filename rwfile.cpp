@@ -33,10 +33,12 @@ void rwfile::parse(const string& filename) {
        // cout<<"Author "<<counter<<endl;
         for (rapidjson::Value::ConstMemberIterator itr2 = attribute.MemberBegin(); itr2 != attribute.MemberEnd(); ++itr2) {
             if(itr2->name.IsString() && itr2->value.IsString()){
-                if(strlen(itr2 -> value.GetString()) > 0)
+                if(strlen(itr2 -> value.GetString()) > 0) {
                     // addPeople needs a second parameter now, i changed it to work with hashmaps
                     // add for second parameter the object of the article that this person is found in. not sure how to do that
-                    art1.addPeople( itr2->value.GetString(), art1);
+                   // string tempor = itr2->value.GetString();
+                   // art1.addPeople(tempor, art1);
+                }
             }
         }
         counter ++;
@@ -48,9 +50,14 @@ void rwfile::parse(const string& filename) {
 
 void rwfile::populate_tree(const string& path) {
     for (const auto& dirEntry : fs::recursive_directory_iterator(path)){
-        if(!is_directory(dirEntry)){
+        if(!is_directory(dirEntry) && dirEntry.path().string().find(".json") != string::npos){
             string filename = dirEntry.path().c_str();
+            //cout << filename << endl;
             parse(filename);
+        }
+        if(is_directory(dirEntry)){
+           // cout << dirEntry.path().c_str() << endl;
+            populate_tree(dirEntry.path().c_str());
         }
     }
 }
@@ -65,17 +72,26 @@ void rwfile::tokenize_file(article& file) {
             string word;
             string temp;
             getline(ls, word, ' ');
+            article temp1;
+            temp1.setID(file.getID());
+            temp1.setTitle(file.getTitle());
+            temp1.setBody(file.getBody());
             Porter2Stemmer::trim(word);
             Porter2Stemmer::stem(word);
-            vector<article> * ptr= &wordTree.insert(word);
+            unordered_map<string, article>*  ptr= &wordTree.insert(word);
             if (ptr->empty()) {
-                ptr->emplace_back(file);
+                temp1.increment();
+                ptr->insert(make_pair(file.getID(), temp1));
             }
             else {
                 //cout << ptr->size() << endl;
-                if (std::find(ptr->begin(), ptr->end(), file) == ptr->end()) {
+                if (ptr->find(file.getID()) == ptr->end()) {
                     //if find function returns last ID, file not found, and file appended
-                    ptr->emplace_back(file);
+                    temp1.increment();
+                    ptr->insert(make_pair(file.getID(), temp1));
+                }
+                else {
+                    temp1.increment();
                 }
             }
 
@@ -84,6 +100,6 @@ void rwfile::tokenize_file(article& file) {
 
 }
 
-DSAvlTree<string, vector<article>> &rwfile::getTree() {
+DSAvlTree<string, unordered_map<string, article>> &rwfile::getTree() {
     return this->wordTree;
 }
