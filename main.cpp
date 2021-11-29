@@ -20,12 +20,12 @@ int main(int argc, char** argv) {
     if (argc == 1) runCatchTests();
     else {
         string path = argv[1];
-        cout << argv[1] << endl;
         rwfile data;
         data.populate_tree(path);
         vector<article> ::iterator ptr;
         string word = argv[2];
-        Porter2Stemmer::trim(word);
+        // we don't want boolean inquiries ('AND', 'NOT') to be put to lower which i think this function does?
+        //Porter2Stemmer::trim(word);
         Porter2Stemmer::stem(word);
         int count = 1;
         for (ptr = data.getTree().insert(word).begin(); ptr < data.getTree().insert(word).end(); ptr++) {
@@ -37,20 +37,15 @@ int main(int argc, char** argv) {
 }
 
 /**TO DO:
- * change path so it can also accept folders of folders
+ *add a word count property to the object so when a word is found in doc the parser keeps going to count how many times
+ *
+ *change path so it can also accept folders of folders
  *
  * change avl tree value from vector to hash map where key is object id and value is full object. also maybe
  * try to return by reference in some places and see if that speeds things up
  *
- * add a word count property to the object so when a user types a word and word is found in doc
- * the parser keeps going to count how many times
- *
  * figure out how to store parsed tree so that it doesn't have to be parsed again. note on this:
  * we need functionality so user can CHOOSE to use pre parsed tree or parse their own again
- *
- * relevancy ranking algorithm: term-frequency/inverse document frequency
- *
- * hash maps
  *
  * putting person and orgs into hash maps
  *

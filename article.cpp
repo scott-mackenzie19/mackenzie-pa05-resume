@@ -19,9 +19,12 @@ void article::setBody(string& body1) {
 
 }
 
-void article::addPeople(string Person) {
-    People.push_back(Person);
+void article::addPeople(string& Person, article Art) {
+    People.put(Person, Art);
+}
 
+void article::addOrg(string& Organization, article Art) {
+    People.put(Organization, Art);
 }
 
 string& article:: getID() {
@@ -36,15 +39,10 @@ string &article::getBody() {
     return this->body;
 }
 
-void article::addOrganizations(string& word) {
-    Organizations.emplace_back(word);
-
+int &article::getNumOccurences() {
+    return this->numOccurences;
 }
 
 bool article::operator==(const article &file) {
     return (this->ID == file.ID);
 }
-
-
-
-

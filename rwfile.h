@@ -29,9 +29,9 @@ private:
     DSAvlTree<string, vector<article>> wordTree;
 
 public:
-    void populate_tree(const string& path);
-    void parse(const string& filename);
-    void tokenize_file(article& file);
+    void populate_tree(const string&);
+    void parse(const string&);
+    void tokenize_file(article&);
     DSAvlTree<string, vector<article>>& getTree();
 };
 

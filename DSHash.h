@@ -8,7 +8,10 @@
 #define TABLE_SIZE 300
 #include <string>
 
+// note on hash map: key MUST BE string, otherwise hash function will not work
+
 struct KeyHash {
+    // https://stackoverflow.com/questions/6709795/converting-string-to-ascii
     int operator()(const std::string key) const {
         int ascii = 0;
         for (int i = 0; i < key.length(); i++) {

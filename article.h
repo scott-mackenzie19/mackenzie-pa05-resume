@@ -5,6 +5,7 @@
 #ifndef INC_21F_FINAL_PROJ_TEMPLATE_ARTICLE_H
 #define INC_21F_FINAL_PROJ_TEMPLATE_ARTICLE_H
 #include <string>
+#include "DSHash.h"
 #include <vector>
 using namespace std;
 
@@ -14,21 +15,21 @@ private :
     string ID;
     string titleName;
     string body;
-    vector<string> People;
-    vector<string> Organizations;
+    DSHash<string, article> People;
+    DSHash<string, article> Organizations;
     int numOccurences;
 
 public:
-    void setID(string& ID1);
-    void setTitle(string& title);
-    void setBody(string& body1);
-    void addPeople(string Person);
-    void addOrganizations(string&);
+    void setID(string&);
+    void setTitle(string&);
+    void setBody(string&);
+    void addPeople(string&, article);
+    void addOrg(string&, article);
     string& getID();
     string& getTitle();
     string& getBody();
-    bool operator ==(const article& file);
-
+    int& getNumOccurences();
+    bool operator ==(const article&);
 };
 
 

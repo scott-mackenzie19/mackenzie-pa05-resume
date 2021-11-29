@@ -112,10 +112,6 @@ int DSAvlTree<K, V>::max (int a, int b) {
     else return b;
 }
 
-// fix errors in compile
-// map of trees or tree of maps - basic data structure?
-// how do hash tables come into play with persons and orgs
-
 template<typename K, typename V>
 V& DSAvlTree<K, V>::insertPrivate(AvlNode*& t, const K& x) {
     if (t==nullptr) {
