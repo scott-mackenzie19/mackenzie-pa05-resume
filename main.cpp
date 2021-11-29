@@ -38,6 +38,8 @@ int main(int argc, char** argv) {
 
 /**TO DO:
  * SCOTT - check my note rwfile.cpp line 37
+ * also main.cpp 27, let me know if commenting out that line fixes it or how else we could get rid of toLower in search query, because if user types all caps
+ * we need to keep that for boolean command args
  *
  * add a word count property to the object so when a word is found in doc the parser keeps going to count how many times.
  * scott (because it has to do with parse function)
@@ -58,7 +60,7 @@ int main(int argc, char** argv) {
  * putting person and orgs into hash maps
  * scott (because you populated avl tree and i'm guessing it's pretty similar logic)
  *
- * boolean command args
+ * boolean command args (this NOT that AND there)
  * kate
  *
  * Doxygen Documentation, UML Class Diagram
