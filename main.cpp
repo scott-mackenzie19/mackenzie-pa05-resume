@@ -37,19 +37,30 @@ int main(int argc, char** argv) {
 }
 
 /**TO DO:
- *add a word count property to the object so when a word is found in doc the parser keeps going to count how many times
+ * SCOTT - check my note rwfile.cpp line 37
+ *
+ * add a word count property to the object so when a word is found in doc the parser keeps going to count how many times.
+ * scott (because it has to do with parse function)
  *
  *change path so it can also accept folders of folders
+ * scott (because it has to do with parse function)
  *
  * change avl tree value from vector to hash map where key is object id and value is full object. also maybe
  * try to return by reference in some places and see if that speeds things up
+ * scott (because it has to do with parse function)
  *
- * figure out how to store parsed tree so that it doesn't have to be parsed again. note on this:
+ * figure out how to store parsed tree so that it doesn't have to be parsed again.
+ * kate
+ *
  * we need functionality so user can CHOOSE to use pre parsed tree or parse their own again
+ * kate
  *
  * putting person and orgs into hash maps
+ * scott (because you populated avl tree and i'm guessing it's pretty similar logic)
  *
  * boolean command args
+ * kate
  *
  * Doxygen Documentation, UML Class Diagram
+ * kate
  */

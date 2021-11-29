@@ -34,6 +34,7 @@ void rwfile::parse(const string& filename) {
         for (rapidjson::Value::ConstMemberIterator itr2 = attribute.MemberBegin(); itr2 != attribute.MemberEnd(); ++itr2) {
             if(itr2->name.IsString() && itr2->value.IsString()){
                 if(strlen(itr2 -> value.GetString()) > 0)
+                    // add for second parameter the object of the article that this person is found in. not sure how to do that
                     art1.addPeople( itr2->value.GetString());
             }
         }

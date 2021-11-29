@@ -5,6 +5,7 @@
 #ifndef INC_21F_FINAL_PROJ_TEMPLATE_DSAVLTREE_H
 #define INC_21F_F
 #include <iostream>
+#include <queue>
 
 template <typename K, typename V>
 class DSAvlTree{
@@ -42,6 +43,7 @@ public:
     int height (AvlNode*);
     int max (int, int);
     bool contains (K element) {return containsPrivate (root, element);}
+    void levelOrder (AvlNode*);
 };
 
 template <typename K, typename V>
@@ -132,6 +134,19 @@ V& DSAvlTree<K, V>::insertPrivate(AvlNode*& t, const K& x) {
        return temp;
     }
     else return t->val;
+}
+
+template<typename K, typename V>
+void DSAvlTree<K, V>::levelOrder (AvlNode* n) {
+    std::queue<AvlNode*> q;
+    q.enqueue (n-> key);
+    while (!q.isEmpty()) {
+        AvlNode* curr = q.dequeue();
+        if (curr->left) q.enqueue (curr->left);
+        if (curr->right) q.enqueue (curr->right);
+        // print curr to file
+        // then have another function to take that file and read it back into a tree
+    }
 }
 
 #endif //INC_21F_FINAL_PROJ_TEMPLATE_DSAVLTREE_H
