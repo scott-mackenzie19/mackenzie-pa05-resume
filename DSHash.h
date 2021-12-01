@@ -45,6 +45,7 @@ private:
         HashNode *getNext() const {
             return next;
         }
+
         void setNext(HashNode * next) {
             HashNode::next = next;
         }
@@ -55,13 +56,20 @@ public:
     DSHash() {
         table = new HashNode *[TABLE_SIZE]();
     }
-//    ~DSHash() {
-//        for (int i = 0; i < TABLE_SIZE; i++) {
-//            if (table[i] != nullptr)
-//                delete table[i];
-//        }
-//        delete[] table;
-//    }
+    ~DSHash() {
+        for (int i = 0; i < TABLE_SIZE; i++) {
+            if (table[i] != nullptr)
+                delete table[i];
+        }
+        delete[] table;
+    }
+    DSHash(const DSHash<K, V>& copy) {
+
+    }
+
+    DSHash<K, V>& operator=(const DSHash<K, V>& copy) {
+
+    }
     bool get (const K& key) {
         unsigned long hashValue = hashFunc (key);
         HashNode *entry = table [hashValue];
@@ -86,6 +94,7 @@ public:
 
         if (entry == nullptr) {
             entry = new HashNode(key, value);
+
             if (prev == nullptr)
                 table[hashValue] = entry;
             else
@@ -98,7 +107,6 @@ public:
         unsigned long hashValue = hashFunc (key);
         HashNode *prev = nullptr;
         HashNode *entry = table [hashValue];
-
         while (entry!=nullptr && entry->getKey() != key) {
             prev = entry;
             entry = entry->getNext();
