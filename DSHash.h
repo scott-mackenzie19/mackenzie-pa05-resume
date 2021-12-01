@@ -64,11 +64,18 @@ public:
         delete[] table;
     }
     DSHash(const DSHash<K, V>& copy) {
-
+        HashNode ** newTable;
+        for (int i = 0; i < TABLE_SIZE; i++) {
+            newTable[i] == table[i];
+        }
     }
 
     DSHash<K, V>& operator=(const DSHash<K, V>& copy) {
-
+        HashNode ** newTable;
+        for (int i = 0; i < TABLE_SIZE; i++) {
+            newTable[i] == table[i];
+        }
+        return *this;
     }
     bool get (const K& key) {
         unsigned long hashValue = hashFunc (key);
