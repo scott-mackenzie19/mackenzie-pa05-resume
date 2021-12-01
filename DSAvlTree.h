@@ -6,6 +6,9 @@
 #define INC_21F_F
 #include <iostream>
 #include <queue>
+#include <fstream>
+#include <queue>
+using namespace std;
 
 template <typename K, typename V>
 class DSAvlTree{
@@ -43,7 +46,8 @@ public:
     int height (AvlNode*);
     int max (int, int);
     bool contains (K element) {return containsPrivate (root, element);}
-    void levelOrder (AvlNode*);
+    vector<pair<K, V>> levelOrder (AvlNode*);
+    vector <pair<K, V>> populateVector();
 };
 
 template <typename K, typename V>
@@ -137,16 +141,24 @@ V& DSAvlTree<K, V>::insertPrivate(AvlNode*& t, const K& x) {
 }
 
 template<typename K, typename V>
-void DSAvlTree<K, V>::levelOrder (AvlNode* n) {
-    std::queue<AvlNode*> q;
-    q.enqueue (n-> key);
-    while (!q.isEmpty()) {
-        AvlNode* curr = q.dequeue();
-        if (curr->left) q.enqueue (curr->left);
-        if (curr->right) q.enqueue (curr->right);
-        // print curr to file
-        // then have another function to take that file and read it back into a tree
+vector<pair<K, V>> DSAvlTree<K, V>::levelOrder (AvlNode* n) {
+    queue<AvlNode*> q;
+    q.push(n);
+    vector<pair<K, V>> vec;
+    while (!q.empty()) {
+        AvlNode* curr = q.front();
+        q.pop();
+        if (curr->left) q.push(curr->left);
+        if (curr->right) q.push(curr->right);
+        // print to file
+        pair <K, V> p = pair <K, V> (q.front()->key, q.front()->val);
+        vec.push_back(p);
     }
+    return vec;
+}
+template <typename K, typename V>
+vector <pair<K, V>> DSAvlTree<K,V>::populateVector() {
+    return levelOrder(root);
 }
 
 #endif //INC_21F_FINAL_PROJ_TEMPLATE_DSAVLTREE_H

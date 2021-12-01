@@ -33,6 +33,7 @@ public:
     void populate_tree(const string&);
     void parse(const string&);
     void tokenize_file(article&);
+    void printTree(char*, vector<pair<string, unordered_map<string, article>>>);
     DSAvlTree<string, unordered_map<string, article>>& getTree();
 };
 

@@ -17,7 +17,6 @@ int main(int argc, char** argv) {
         data.populate_tree(path);
         unordered_map<string, article> ::iterator ptr;
         string word = argv[2];
-        // we don't want boolean inquiries ('AND', 'NOT') to be put to lower which i think this function does?
         Porter2Stemmer::trim(word);
         Porter2Stemmer::stem(word);
         unordered_map<string, article> temp = data.getTree().insert(word);
@@ -26,37 +25,18 @@ int main(int argc, char** argv) {
             cout << endl << "Search Result " << count << ": " << ptr->second.getNumOccurences() << endl << endl;
             count++;
         }
+
+        data.printTree (argv[3], data.getTree().populateVector());
+
+
         return 0;
     }
 }
 
 /**TO DO:
- * SCOTT - check my note rwfile.cpp line 37
- * also main.cpp 27, let me know if commenting out that line fixes it or how else we could get rid of toLower in search query, because if user types all caps
- * we need to keep that for boolean command args
- *
- * add a word count property to the object so when a word is found in doc the parser keeps going to count how many times.
- * scott (because it has to do with parse function)
- *
- *change path so it can also accept folders of folders
- * scott (because it has to do with parse function)
- *
- * change avl tree value from vector to hash map where key is object id and value is full object. also maybe
- * try to return by reference in some places and see if that speeds things up
- * scott (because it has to do with parse function)
- *
- * figure out how to store parsed tree so that it doesn't have to be parsed again.
- * kate
- *
- * we need functionality so user can CHOOSE to use pre parsed tree or parse their own again
- * kate
- *
- * putting person and orgs into hash maps
- * scott (because you populated avl tree and i'm guessing it's pretty similar logic)
- *
+ * add copy constructor & overloaded assignment operator to dshash
+ * store hash map of person and hash map of org
+ * functionality so user can CHOOSE to use pre parsed info or parse their own again
  * boolean command args (this NOT that AND there)
- * kate
- *
  * Doxygen Documentation, UML Class Diagram
- * kate
  */

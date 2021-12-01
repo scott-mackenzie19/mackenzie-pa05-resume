@@ -40,7 +40,7 @@ private:
             return value;
         }
         void setValue (V value) {
-            HashNode::value == value;
+            HashNode::value = value;
         }
         HashNode *getNext() const {
             return next;
@@ -55,18 +55,13 @@ public:
     DSHash() {
         table = new HashNode *[TABLE_SIZE]();
     }
-    ~DSHash() {
-        for (int i = 0; i < TABLE_SIZE; i++) {
-            HashNode *entry = table[i];
-            while (entry != nullptr) {
-                HashNode *prev = entry;
-                entry = entry->getNext();
-                delete prev;
-            }
-            table[i] = nullptr;
-        }
-        delete[] table;
-    }
+//    ~DSHash() {
+//        for (int i = 0; i < TABLE_SIZE; i++) {
+//            if (table[i] != nullptr)
+//                delete table[i];
+//        }
+//        delete[] table;
+//    }
     bool get (const K& key) {
         unsigned long hashValue = hashFunc (key);
         HashNode *entry = table [hashValue];
