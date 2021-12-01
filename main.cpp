@@ -1,12 +1,5 @@
 #include <iostream>
 #include "include/rapidjson/document.h"
-#include "include/rapidjson/istreamwrapper.h"
-#include "include/rapidjson/stringbuffer.h"
-#include "include/rapidjson/Writer.h"
-#include <iostream>
-#include <fstream>
-#include <dirent.h>
-#include <filesystem>
 #include "porter2_stemmer.h"
 #include <string>
 #include "rwfile.h"
@@ -30,7 +23,7 @@ int main(int argc, char** argv) {
         unordered_map<string, article> temp = data.getTree().insert(word);
         int count = 1;
         for (ptr = temp.begin(); ptr != temp.end(); ptr++) {
-            cout << endl << "Search Result " << count << ": " << ptr->second.getTitle() << endl << endl;
+            cout << endl << "Search Result " << count << ": " << ptr->second.getNumOccurences() << endl << endl;
             count++;
         }
         return 0;

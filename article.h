@@ -17,7 +17,7 @@ private :
     string body;
     //DSHash<string, article> People66;
     //DSHash<string, article> Organizations;
-    int numOccurences = 0;
+    int numOccurences;
 
 public:
     void setID(string&);
@@ -31,6 +31,7 @@ public:
     string& getBody();
     int& getNumOccurences();
     bool operator ==(const article&);
+    void setNum(int& num);
 };
 
 

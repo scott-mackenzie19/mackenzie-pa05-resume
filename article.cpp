@@ -51,3 +51,8 @@ void article::increment() {
     numOccurences++;
 
 }
+
+void article::setNum(int &num) {
+    numOccurences = num;
+
+}

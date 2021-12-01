@@ -13,11 +13,15 @@ void rwfile::parse(const string& filename) {
     ///
     ///used TA Christian's reference
     ///
+
     FILE * fp = fopen(filename.c_str(), "rb");
-    char buffer [63540];
+    char buffer [35540];
     FileReadStream ifss(fp, buffer, sizeof(buffer));
     Document document;
     document.ParseStream(ifss);
+    if (!document.IsObject()) {
+        return;
+    }
     article art1; //article object created
     string paperID = document["uuid"].GetString();
     string titleName = document["title"].GetString();
@@ -26,7 +30,7 @@ void rwfile::parse(const string& filename) {
     art1.setTitle(titleName); //title set in article object
     art1.setBody(body_text); //body set in article object
     const rapidjson::Value& attributes = document["entities"]["persons"];
-    const rapidjson::Value& holder = document["organizations"];
+    const rapidjson::Value& holder = document["entities"]["organizations"];
     int counter = 1;
     for (rapidjson::Value::ConstValueIterator itr = attributes.Begin(); itr != attributes.End(); ++itr) {
         const rapidjson::Value& attribute = *itr;
@@ -36,27 +40,25 @@ void rwfile::parse(const string& filename) {
                 if(strlen(itr2 -> value.GetString()) > 0) {
                     // addPeople needs a second parameter now, i changed it to work with hashmaps
                     // add for second parameter the object of the article that this person is found in. not sure how to do that
-                   // string tempor = itr2->value.GetString();
+                    //make a copy
+                    // string tempor = itr2->value.GetString();
                    // art1.addPeople(tempor, art1);
                 }
             }
         }
         counter ++;
     }
-    articles.push_back(art1);
     tokenize_file(art1);
     fclose(fp);
 }
 
-void rwfile::populate_tree(const string& path) {
+void rwfile::populate_tree(const string& path) { //first custom
     for (const auto& dirEntry : fs::recursive_directory_iterator(path)){
-        if(!is_directory(dirEntry) && dirEntry.path().string().find(".json") != string::npos){
+        if(!is_directory(dirEntry) ){
             string filename = dirEntry.path().c_str();
-            //cout << filename << endl;
             parse(filename);
         }
-        if(is_directory(dirEntry)){
-           // cout << dirEntry.path().c_str() << endl;
+        else { //if file is a folder, function repeats
             populate_tree(dirEntry.path().c_str());
         }
     }
@@ -79,19 +81,23 @@ void rwfile::tokenize_file(article& file) {
             Porter2Stemmer::trim(word);
             Porter2Stemmer::stem(word);
             unordered_map<string, article>*  ptr= &wordTree.insert(word);
-            if (ptr->empty()) {
+            if (ptr->empty()) { //if map empty
+                int num = 0;
+                temp1.setNum(num);
                 temp1.increment();
                 ptr->insert(make_pair(file.getID(), temp1));
             }
-            else {
-                //cout << ptr->size() << endl;
+            else { //if map not empty
                 if (ptr->find(file.getID()) == ptr->end()) {
+                    int num = 0;
+                    temp1.setNum(num);
                     //if find function returns last ID, file not found, and file appended
                     temp1.increment();
                     ptr->insert(make_pair(file.getID(), temp1));
                 }
-                else {
-                    temp1.increment();
+                else { //if file found
+                    ptr->find(file.getID())->second.increment();
+                    cout << ptr->find(file.getID())->second.getNumOccurences() << endl;
                 }
             }
 
