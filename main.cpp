@@ -26,7 +26,8 @@ int main(int argc, char** argv) {
             count++;
         }
 
-        data.printTree (argv[3], data.getTree().populateVector());
+        data.printTree(argv[3], data.getTree().populateVector());
+        cout << "out" << endl;
 
 
         return 0;

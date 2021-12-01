@@ -15,8 +15,8 @@ private :
     string ID;
     string titleName;
     string body;
-    DSHash<string, article> People;
-    DSHash<string, article> Organizations;
+    //DSHash<string, article> People;
+    //DSHash<string, article> Organizations;
     int numOccurences;
 
 public:

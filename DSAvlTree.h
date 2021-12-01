@@ -142,17 +142,20 @@ V& DSAvlTree<K, V>::insertPrivate(AvlNode*& t, const K& x) {
 
 template<typename K, typename V>
 vector<pair<K, V>> DSAvlTree<K, V>::levelOrder (AvlNode* n) {
+    cout << "in " << endl;
     queue<AvlNode*> q;
     q.push(n);
     vector<pair<K, V>> vec;
     while (!q.empty()) {
-        AvlNode* curr = q.front();
+        AvlNode *curr = q.front();
         q.pop();
-        if (curr->left) q.push(curr->left);
-        if (curr->right) q.push(curr->right);
-        // print to file
-        pair <K, V> p = pair <K, V> (q.front()->key, q.front()->val);
-        vec.push_back(p);
+        if (curr->right != nullptr && curr->left != nullptr) {
+            if (curr->left) q.push(curr->left);
+            if (curr->right) q.push(curr->right);
+            // print to file
+            pair<K, V> p = pair<K, V>(q.front()->key, q.front()->val);
+            vec.push_back(p);
+        }
     }
     return vec;
 }

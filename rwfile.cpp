@@ -97,7 +97,7 @@ void rwfile::tokenize_file(article& file) {
                 }
                 else { //if file found
                     ptr->find(file.getID())->second.increment();
-                    cout << ptr->find(file.getID())->second.getNumOccurences() << endl;
+                    //cout << ptr->find(file.getID())->second.getNumOccurences() << endl;
                 }
             }
 
