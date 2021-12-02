@@ -11,7 +11,6 @@
 #include<vector>
 using namespace std;
 
-// note on hash map: key MUST BE string, otherwise hash function will not work
 template <typename K>
 struct KeyHash {
     // https://stackoverflow.com/questions/6709795/converting-string-to-ascii
@@ -57,6 +56,8 @@ private:
 public:
     DSHash() {
         table = new HashNode *[TABLE_SIZE]();
+        for (int i = 0; i < TABLE_SIZE; i++)
+            table[i] = nullptr;
     }
     ~DSHash() {
 //        for (int i = 0; i < TABLE_SIZE; i++) {
@@ -81,7 +82,7 @@ public:
     }
 
     V& at (K& key) {
-        auto hashValue = std::hash(key);
+        auto hashValue = hashFunc(key);
         int loc = hashValue % TABLE_SIZE;
         return table[loc];
     }

@@ -12,7 +12,7 @@ private:
 public:
     void menu();
     void handleBool();
-    void go(char**);
+    void go();
     void stats();
     void load();
     void write();

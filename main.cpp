@@ -9,6 +9,8 @@ using namespace std;
 namespace fs = std::filesystem;
 using namespace rapidjson;
 
+
+// /Users/katebouis/Desktop/arch beech
 int main(int argc, char** argv) {
     if (argc == 1) runCatchTests();
     else {
@@ -65,6 +67,5 @@ int main(int argc, char** argv) {
  * OFFICE HOURS:
  * debug destructor
  * help with reading files back into map/tree
- * hash func with templating in dshash
- * command line args vs cin?? like handling for multiple queries. is (for example) argv[0] the search term or is it cin << searchTerm?
+ * filesystem error
  */

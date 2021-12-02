@@ -35,9 +35,9 @@ void query::menu() {
 }
 
 void query::handleBool() {
-
+// user argv[]
 }
-void query::go(char** arg) {
+void query::go() {
 
 }
 void query::stats() {

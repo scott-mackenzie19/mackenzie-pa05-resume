@@ -198,23 +198,6 @@ void rwfile::set_tree(DSAvlTree<string, unordered_map<string, article>>& table) 
 //}
 
 
-//DSHash <string, vector<article>> rwfile::readPeople(string arg) {
-//    ifstream input (arg);
-//    if (!input) exit (EXIT_FAILURE);
-//    DSHash <string, vector<article>> index_me;
-//    vector<article> vec;
-//    for (int i = 0; !input.eof(); i++) {
-//        // says no [] operator? how does this syntax work
-//        getline(input, index_me[i].first, ';');
-//        for (int j = 0; /** while still on same line*/ ;j++) {
-//            getline(input, index_me[i].second[j].setTitle(), ',');
-//            getline(input, index_me[i].second[j].setNumOccurrences(), ',');
-//            getline(input, index_me[i].second[j].setID(), ':');
-//            vec.push_back(index_me[i].second[j]);
-//        }
-//        index_me.put(first, second);
-//    }
-//}
 
 //DSHash <string, vector<article>> rwfile::readOrgs(string arg) {
 //    ifstream input (arg);
