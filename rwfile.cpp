@@ -55,6 +55,7 @@ string holder;
 void rwfile::populate_tree(const string& path) { //first custom
     int num = 0;
     int count = 0;
+    holder = path;
     for (const auto& dirEntry : fs::recursive_directory_iterator(path)){
         if(!is_directory(dirEntry) && holder.find(dirEntry.path().c_str()) == string::npos){
             string filename = dirEntry.path().c_str();
