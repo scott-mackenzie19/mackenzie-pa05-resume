@@ -20,11 +20,11 @@ void article::setBody(string& body1) {
 }
 
 void article::addPeople(string& Person, article Art) {
-    People.put(Person, Art);
+    //People.put(Person, Art);
 }
 
 void article::addOrg(string& Organization, article Art) {
-    People.put(Organization, Art);
+   // People.put(Organization, Art);
 }
 
 string& article:: getID() {
