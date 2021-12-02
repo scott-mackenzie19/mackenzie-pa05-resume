@@ -53,7 +53,7 @@ int main(int argc, char** argv) {
  * KATE:
  * store hash map of person and hash map of org in file (written but untested)
  *
- * reading files back into trees or hash maps - have fontenot help office hours tmrw
+ * reading files back into trees or hash maps
  *
  * functionality so user can CHOOSE to use pre parsed info or parse their own again
  *
@@ -67,4 +67,5 @@ int main(int argc, char** argv) {
  * debug destructor
  * help with reading files back into map/tree
  * hash func with templating in dshash
+ * command line args vs cin?? like handling for multiple queries. is (for example) argv[0] the search term or is it cin << searchTerm?
  */
