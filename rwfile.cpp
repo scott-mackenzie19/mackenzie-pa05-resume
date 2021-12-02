@@ -110,7 +110,43 @@ DSAvlTree<string, unordered_map<string, article>> &rwfile::getTree() {
     return this->wordTree;
 }
 
-void rwfile::printTree (char* arg, vector<pair<string, unordered_map<string, article>>> vec) {
+void rwfile::printTree (string arg, vector<pair<string, unordered_map<string, article>>> vec) {
+    ofstream output (arg);
+    if(!output) exit (EXIT_FAILURE);
+    for (int i = 0; i < vec.size(); i++) {
+        output << vec[i].first << ";";
+        auto it = vec[i].second.begin();
+        while (it != vec[i].second.end()) {
+            output << it->second.getTitle() << ",";
+            output << it->second.getNumOccurences() << ",";
+            output << it->second.getID() << ",";
+            output << ":";
+            it++;
+        }
+        output << endl;
+    }
+    output.close();
+}
+
+void rwfile::printPeople (string arg, vector<pair<string, unordered_map<string, article>>> vec) {
+    ofstream output (arg);
+    if(!output) exit (EXIT_FAILURE);
+    for (int i = 0; i < vec.size(); i++) {
+        output << vec[i].first << ";";
+        auto it = vec[i].second.begin();
+        while (it != vec[i].second.end()) {
+            output << it->second.getTitle() << ",";
+            output << it->second.getNumOccurences() << ",";
+            output << it->second.getID() << ",";
+            output << ":";
+            it++;
+        }
+        output << endl;
+    }
+    output.close();
+}
+
+void rwfile::printOrgs (string arg, vector<pair<string, unordered_map<string, article>>> vec) {
     ofstream output (arg);
     if(!output) exit (EXIT_FAILURE);
     for (int i = 0; i < vec.size(); i++) {

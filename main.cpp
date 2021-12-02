@@ -26,8 +26,9 @@ int main(int argc, char** argv) {
             count++;
         }
 
-        data.printTree (argv[3], data.getTree().populateVector());
-
+        data.printTree ("output.txt", data.getTree().populateVector());
+        //data.printPeople ("outputPeople.txt", data.getPeople().populateVector());
+        //data.printOrgs ("outputOrgs.txt", data.getOrgs().populateVector());
 
         return 0;
     }

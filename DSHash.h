@@ -57,11 +57,11 @@ public:
         table = new HashNode *[TABLE_SIZE]();
     }
     ~DSHash() {
-        for (int i = 0; i < TABLE_SIZE; i++) {
-            if (table[i] != nullptr)
-                delete table[i];
-        }
-        delete[] table;
+//        for (int i = 0; i < TABLE_SIZE; i++) {
+//            if (table[i] != nullptr)
+//                delete table[i];
+//        }
+//        delete[] table;
     }
     DSHash(const DSHash<K, V>& copy) {
         HashNode ** newTable;
