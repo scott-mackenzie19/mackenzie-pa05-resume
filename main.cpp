@@ -27,17 +27,19 @@ int main(int argc, char** argv) {
         }
 
         data.printTree ("output.txt", data.getTree().populateVector());
-        //data.printPeople ("outputPeople.txt", data.getPeople().populateVector());
-        //data.printOrgs ("outputOrgs.txt", data.getOrgs().populateVector());
+//        data.printPeople ("outputPeople.txt", data.getPeople().populateVector());
+//        data.printOrgs ("outputOrgs.txt", data.getOrgs().populateVector());
 
         return 0;
     }
 }
 
 /**TO DO:
- * add copy constructor & overloaded assignment operator to dshash
- * store hash map of person and hash map of org
+ * fix dshash destructor
+ * getters for people & orgs hash maps in rwfile
+ * store hash map of person and hash map of org in file
  * functionality so user can CHOOSE to use pre parsed info or parse their own again
+ * menu for user interaction in a while loop (query class)
  * boolean command args (this NOT that AND there)
  * Doxygen Documentation, UML Class Diagram
  */
