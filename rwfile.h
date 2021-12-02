@@ -38,6 +38,7 @@ public:
     void printPeople(string, vector<pair<string, unordered_map<string, article>>>);
     void printOrgs(string, vector<pair<string, unordered_map<string, article>>>);
     DSAvlTree<string, unordered_map<string, article>>& getTree();
+    void set_tree( DSAvlTree<string, unordered_map<string, article>>& tree);
     // get people
     // get orgs
     DSAvlTree<string, unordered_map<string, article>> readTree(string);

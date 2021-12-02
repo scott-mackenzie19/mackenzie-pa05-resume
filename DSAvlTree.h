@@ -32,7 +32,7 @@ private:
         else return containsPrivate (c-> right, element);
     }
     DSAvlTree(const DSAvlTree<K, V>& rhs) {}
-    DSAvlTree<K, V>& operator=(const DSAvlTree<K, V>& rhs) {}
+
 public:
     DSAvlTree(): root(nullptr) {}
     ~DSAvlTree() {makeEmpty(root);}
@@ -50,6 +50,8 @@ public:
     vector <pair<K, V>> populateVector();
     K getKey() {return this->key;}
     void setKey(K key) {this->key = key;}
+
+    DSAvlTree<K, V>& operator=(const DSAvlTree<K, V>& rhs) {}
 };
 
 template <typename K, typename V>

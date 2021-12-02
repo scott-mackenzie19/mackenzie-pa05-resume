@@ -172,6 +172,10 @@ void rwfile::printOrgs (string arg, vector<pair<string, unordered_map<string, ar
     output.close();
 }
 
+void rwfile::set_tree(DSAvlTree<string, unordered_map<string, article>>& table) {
+    this->wordTree = table;
+}
+
 /**
   * below was throwing errors so it's commented out so we can fix other problems before coming back to it
   */
