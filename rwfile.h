@@ -21,6 +21,7 @@
 #include "word.h"
 #include "porter2_stemmer.h"
 #include <unordered_map>
+#include "DSHash.h"
 
 using namespace std;
 
@@ -39,6 +40,8 @@ public:
     DSAvlTree<string, unordered_map<string, article>>& getTree();
     // get people
     // get orgs
+    DSAvlTree<string, unordered_map<string, article>> readTree(string);
+    DSHash <string, vector<article>> readMap(string);
 };
 
 

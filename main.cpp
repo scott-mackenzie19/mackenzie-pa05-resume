@@ -30,16 +30,41 @@ int main(int argc, char** argv) {
 //        data.printPeople ("outputPeople.txt", data.getPeople().populateVector());
 //        data.printOrgs ("outputOrgs.txt", data.getOrgs().populateVector());
 
+// set these equal to setter functions:
+//        data.readTree("output.txt");
+//        data.readMap("outputPeople.txt");
+//        data.readMap("outputOrgs.txt");
+
         return 0;
     }
 }
 
 /**TO DO:
- * fix dshash destructor
+ * WHOEVER:
+ * fix dshash destructor - have fontenot help office hours tmrw
+ *
+ * SCOTT:
  * getters for people & orgs hash maps in rwfile
- * store hash map of person and hash map of org in file
+ *
+ * maybe make people and org hash maps to have value of vector of articles instead of just articles
+ *
+ * setters for tree, people, and orgs so that reading in from file can create new tree
+ *
+ * KATE:
+ * store hash map of person and hash map of org in file (written but untested)
+ *
+ * reading files back into trees or hash maps - have fontenot help office hours tmrw
+ *
  * functionality so user can CHOOSE to use pre parsed info or parse their own again
+ *
  * menu for user interaction in a while loop (query class)
+ *
  * boolean command args (this NOT that AND there)
+ *
  * Doxygen Documentation, UML Class Diagram
+ *
+ * OFFICE HOURS:
+ * debug destructor
+ * help with reading files back into map/tree
+ * hash func with templating in dshash
  */

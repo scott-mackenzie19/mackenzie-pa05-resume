@@ -5,7 +5,7 @@
 #ifndef INC_21F_FINAL_PROJ_TEMPLATE_DSHASH_H
 #define INC_21F_FINAL_PROJ_TEMPLATE_DSHASH_H
 
-#define TABLE_SIZE 300
+#define TABLE_SIZE 100043
 #include <string>
 #include <stdexcept>
 using namespace std;
@@ -78,6 +78,13 @@ public:
         }
         return *this;
     }
+
+    V& at (K& key) {
+        auto hashValue = std::hash(key);
+        int loc = hashValue % TABLE_SIZE;
+        return table[loc];
+    }
+
     bool get (const K& key) {
         unsigned long hashValue = hashFunc (key);
         HashNode *entry = table [hashValue];

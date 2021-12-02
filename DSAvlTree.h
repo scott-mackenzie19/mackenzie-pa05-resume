@@ -48,6 +48,8 @@ public:
     bool contains (K element) {return containsPrivate (root, element);}
     vector<pair<K, V>> levelOrder (AvlNode*);
     vector <pair<K, V>> populateVector();
+    K getKey() {return this->key;}
+    void setKey(K key) {this->key = key;}
 };
 
 template <typename K, typename V>
