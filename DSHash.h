@@ -5,9 +5,10 @@
 #ifndef INC_21F_FINAL_PROJ_TEMPLATE_DSHASH_H
 #define INC_21F_FINAL_PROJ_TEMPLATE_DSHASH_H
 
-#define TABLE_SIZE 300
+#define TABLE_SIZE 100043
 #include <string>
 #include <stdexcept>
+using namespace std;
 
 // note on hash map: key MUST BE string, otherwise hash function will not work
 template <typename K>
@@ -57,11 +58,11 @@ public:
         table = new HashNode *[TABLE_SIZE]();
     }
     ~DSHash() {
-        for (int i = 0; i < TABLE_SIZE; i++) {
-            if (table[i] != nullptr)
-                delete table[i];
-        }
-        delete[] table;
+//        for (int i = 0; i < TABLE_SIZE; i++) {
+//            if (table[i] != nullptr)
+//                delete table[i];
+//        }
+//        delete[] table;
     }
     DSHash(const DSHash<K, V>& copy) {
         HashNode ** newTable;
@@ -77,6 +78,13 @@ public:
         }
         return *this;
     }
+
+    V& at (K& key) {
+        auto hashValue = std::hash(key);
+        int loc = hashValue % TABLE_SIZE;
+        return table[loc];
+    }
+
     bool get (const K& key) {
         unsigned long hashValue = hashFunc (key);
         HashNode *entry = table [hashValue];
@@ -140,6 +148,16 @@ public:
         throw std::range_error{"Key not found!"};
     }
 
+    vector<pair<K, V>> populateVector () {
+        vector<pair<K, V>> vec;
+        for (int i = 0; i < TABLE_SIZE; i++) {
+            if (table[i] != nullptr) {
+                pair<K, V> p = pair<K, V>(table[i]->key, table[i]->value);
+                vec.push_back(p);
+            }
+        }
+        return vec;
+    }
 };
 
 

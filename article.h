@@ -15,6 +15,7 @@ private :
     string ID;
     string titleName;
     string body;
+    // should value be vector of articles? instead of just article?
     //DSHash<string, article> People;
     //DSHash<string, article> Organizations;
     int numOccurences;

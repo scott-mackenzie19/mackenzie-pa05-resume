@@ -21,6 +21,7 @@
 #include "word.h"
 #include "porter2_stemmer.h"
 #include <unordered_map>
+#include "DSHash.h"
 
 using namespace std;
 
@@ -33,8 +34,14 @@ public:
     void populate_tree(const string&);
     void parse(const string&);
     void tokenize_file(article&);
-    void printTree(char*, vector<pair<string, unordered_map<string, article>>>);
+    void printTree(string, vector<pair<string, unordered_map<string, article>>>);
+    void printPeople(string, vector<pair<string, unordered_map<string, article>>>);
+    void printOrgs(string, vector<pair<string, unordered_map<string, article>>>);
     DSAvlTree<string, unordered_map<string, article>>& getTree();
+    // get people
+    // get orgs
+    DSAvlTree<string, unordered_map<string, article>> readTree(string);
+    DSHash <string, vector<article>> readMap(string);
 };
 
 

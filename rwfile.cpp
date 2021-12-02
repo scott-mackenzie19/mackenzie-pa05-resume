@@ -118,7 +118,7 @@ DSAvlTree<string, unordered_map<string, article>> &rwfile::getTree() {
     return this->wordTree;
 }
 
-void rwfile::printTree (char* arg, vector<pair<string, unordered_map<string, article>>> vec) {
+void rwfile::printTree (string arg, vector<pair<string, unordered_map<string, article>>> vec) {
     ofstream output (arg);
     if(!output) exit (EXIT_FAILURE);
     for (int i = 0; i < vec.size(); i++) {
@@ -135,3 +135,76 @@ void rwfile::printTree (char* arg, vector<pair<string, unordered_map<string, art
     }
     output.close();
 }
+
+void rwfile::printPeople (string arg, vector<pair<string, unordered_map<string, article>>> vec) {
+    ofstream output (arg);
+    if(!output) exit (EXIT_FAILURE);
+    for (int i = 0; i < vec.size(); i++) {
+        output << vec[i].first << ";";
+        auto it = vec[i].second.begin();
+        while (it != vec[i].second.end()) {
+            output << it->second.getTitle() << ",";
+            output << it->second.getNumOccurences() << ",";
+            output << it->second.getID() << ",";
+            output << ":";
+            it++;
+        }
+        output << endl;
+    }
+    output.close();
+}
+
+void rwfile::printOrgs (string arg, vector<pair<string, unordered_map<string, article>>> vec) {
+    ofstream output (arg);
+    if(!output) exit (EXIT_FAILURE);
+    for (int i = 0; i < vec.size(); i++) {
+        output << vec[i].first << ";";
+        auto it = vec[i].second.begin();
+        while (it != vec[i].second.end()) {
+            output << it->second.getTitle() << ",";
+            output << it->second.getNumOccurences() << ",";
+            output << it->second.getID() << ",";
+            output << ":";
+            it++;
+        }
+        output << endl;
+    }
+    output.close();
+}
+
+/**
+  * below was throwing errors so it's commented out so we can fix other problems before coming back to it
+  */
+
+//DSAvlTree<string, unordered_map<string, article>> rwfile::readTree(string arg) {
+//    ifstream input (arg);
+//    if (!input) exit (EXIT_FAILURE);
+//    DSAvlTree<string, unordered_map<string, article>> index_me;
+//    string key;
+//    while (!input.eof()) {
+//        getline (input, key, ';');
+//        index_me.setKey(key);
+//        while (/** still on same line */) {
+//            getline(input, index_me.second.setTitle(), ',');
+//            getline(input, index_me.second.setNumOccurences(), ',');
+//            getline(input, index_me.second.setID(), ':');
+//        }
+//        index_me.insert (key);
+//    }
+//}
+
+
+//DSHash <string, vector<article>> rwfile::readMap(string arg) {
+//    ifstream input (arg);
+//    if (!input) exit (EXIT_FAILURE);
+//    DSHash <string, vector<article>> index_me;
+//    for (int i = 0; !input.eof(); i++) {
+//        // says no [] operator? how does this syntax work
+//        getline(input, index_me[i].first, ';');
+//        for (int j = 0; /** while still on same line*/ ;j++) {
+//            getline(input, index_me[i].second[j].setTitle(), ',');
+//            getline(input, index_me[i].second[j].setNumOccurrences(), ',');
+//            getline(input, index_me[i].second[j].setID(), ':');
+//        }
+//    }
+//}
