@@ -30,10 +30,9 @@ int main(int argc, char** argv) {
 //        data.printPeople ("outputPeople.txt", data.getPeople().populateVector());
 //        data.printOrgs ("outputOrgs.txt", data.getOrgs().populateVector());
 
-// set these equal to setter functions:
 //        data.readTree("output.txt");
-//        data.readMap("outputPeople.txt");
-//        data.readMap("outputOrgs.txt");
+//        data.readPeople("outputPeople.txt");
+//        data.readOrgs("outputOrgs.txt");
 
         return 0;
     }

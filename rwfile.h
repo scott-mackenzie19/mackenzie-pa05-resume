@@ -41,7 +41,8 @@ public:
     // get people
     // get orgs
     DSAvlTree<string, unordered_map<string, article>> readTree(string);
-    DSHash <string, vector<article>> readMap(string);
+    DSHash <string, vector<article>> readOrgs(string);
+    DSHash <string, vector<article>> readPeople(string);
 };
 
 
