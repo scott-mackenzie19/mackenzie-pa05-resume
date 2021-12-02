@@ -7,6 +7,7 @@
 #include <string>
 #include "DSHash.h"
 #include <vector>
+#include <unordered_map>
 using namespace std;
 
 
@@ -16,14 +17,18 @@ private :
     string titleName;
     string body;
     // should value be vector of articles? instead of just article?
-    //DSHash<string, article> People;
-    //DSHash<string, article> Organizations;
+    DSHash<string, article> People;
+    DSHash<string, article> Organizations;
     int numOccurences;
 
 public:
     void setID(string&);
     void setTitle(string&);
     void setBody(string&);
+    void setPeople(DSHash<string, article>& table);
+    void setOrganizations(DSHash<string, article>& table);
+    DSHash<string, article>& getPeopleHash();
+    DSHash<string, article>& getOrganizationsHash();
     void increment();
     void addPeople(string&, article);
     void addOrg(string&, article);

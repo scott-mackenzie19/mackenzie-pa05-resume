@@ -8,6 +8,7 @@
 #define TABLE_SIZE 100043
 #include <string>
 #include <stdexcept>
+#include<vector>
 using namespace std;
 
 // note on hash map: key MUST BE string, otherwise hash function will not work
