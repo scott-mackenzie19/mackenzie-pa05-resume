@@ -8,6 +8,7 @@
 #define TABLE_SIZE 300
 #include <string>
 #include <stdexcept>
+using namespace std;
 
 // note on hash map: key MUST BE string, otherwise hash function will not work
 template <typename K>
@@ -140,6 +141,16 @@ public:
         throw std::range_error{"Key not found!"};
     }
 
+    vector<pair<K, V>> populateVector () {
+        vector<pair<K, V>> vec;
+        for (int i = 0; i < TABLE_SIZE; i++) {
+            if (table[i] != nullptr) {
+                pair<K, V> p = pair<K, V>(table[i]->key, table[i]->value);
+                vec.push_back(p);
+            }
+        }
+        return vec;
+    }
 };
 
 
