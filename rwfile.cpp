@@ -51,14 +51,23 @@ void rwfile::parse(const string& filename) {
     tokenize_file(art1);
     fclose(fp);
 }
-
+string holder;
 void rwfile::populate_tree(const string& path) { //first custom
+    int num = 0;
+    int count = 0;
     for (const auto& dirEntry : fs::recursive_directory_iterator(path)){
-        if(!is_directory(dirEntry) ){
+        if(!is_directory(dirEntry) && holder.find(dirEntry.path().c_str()) == string::npos){
             string filename = dirEntry.path().c_str();
             parse(filename);
+            num ++;
+            cout << num << endl;
         }
-        else { //if file is a folder, function repeats
+        if (!holder.empty()) {
+            holder.append(dirEntry.path().c_str());
+        }
+        else { //if file is a folder and not already searched, function repeats
+            holder.append(dirEntry.path().c_str());
+            cout << "first" << endl;
             populate_tree(dirEntry.path().c_str());
         }
     }
@@ -81,7 +90,7 @@ void rwfile::tokenize_file(article& file) {
             Porter2Stemmer::trim(word);
             Porter2Stemmer::stem(word);
             unordered_map<string, article>*  ptr= &wordTree.insert(word);
-            if (ptr->empty()) { //if map empty
+            if (ptr->empty()) { //if map empty,
                 int num = 0;
                 temp1.setNum(num);
                 temp1.increment();
@@ -100,7 +109,6 @@ void rwfile::tokenize_file(article& file) {
                     //cout << ptr->find(file.getID())->second.getNumOccurences() << endl;
                 }
             }
-
         }
     }
 

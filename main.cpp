@@ -25,11 +25,8 @@ int main(int argc, char** argv) {
             cout << endl << "Search Result " << count << ": " << ptr->second.getNumOccurences() << endl << endl;
             count++;
         }
-
         data.printTree(argv[3], data.getTree().populateVector());
         cout << "out" << endl;
-
-
         return 0;
     }
 }
