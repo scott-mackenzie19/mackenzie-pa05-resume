@@ -8,6 +8,7 @@ using namespace std;
 namespace fs = std::filesystem;
 using namespace rapidjson;
 #include <sstream>
+#include <fstream>
 
 void rwfile::parse(const string& filename) {
     ///
@@ -61,11 +62,12 @@ void rwfile::populate_tree(const string& path) { //first custom
             parse(filename);
             num ++;
             cout << num << endl;
+            count = 1;
         }
-        if (!holder.empty()) {
+        if (count == 1) {
             holder.append(dirEntry.path().c_str());
         }
-        else { //if file is a folder and not already searched, function repeats
+        else if (is_directory(dirEntry)) { //if file is a folder and not already searched, function repeats
             holder.append(dirEntry.path().c_str());
             cout << "first" << endl;
             populate_tree(dirEntry.path().c_str());
@@ -73,9 +75,11 @@ void rwfile::populate_tree(const string& path) { //first custom
     }
 }
 
+
+
 void rwfile::tokenize_file(article& file) {
     stringstream ss(file.getBody());
-    while (ss.good()) {
+   LOOP: while (ss.good()) {
         string line;
         getline(ss, line);
         stringstream ls(line);
@@ -88,6 +92,12 @@ void rwfile::tokenize_file(article& file) {
             temp1.setTitle(file.getTitle());
             temp1.setBody(file.getBody());
             Porter2Stemmer::trim(word);
+            for (int i = 0; i < stopWords.size(); i++) {
+                //cout << stopWords[i] << endl;
+                if (stopWords[i] == word) {
+                    goto LOOP;
+                }
+            }
             Porter2Stemmer::stem(word);
             unordered_map<string, article>*  ptr= &wordTree.insert(word);
             if (ptr->empty()) { //if map empty,
@@ -175,6 +185,20 @@ void rwfile::printOrgs (string arg, vector<pair<string, unordered_map<string, ar
 void rwfile::set_tree(DSAvlTree<string, unordered_map<string, article>>& table) {
     this->wordTree = table;
 }
+
+void rwfile::loadStopWords(const string &fileName) {
+    ifstream ifs;
+    ifs.open(fileName);
+    while (ifs.good()) {
+        string word;
+        getline(ifs, word);
+        Porter2Stemmer::trim(word);
+        stopWords.emplace_back(word);
+    }
+    ifs.close();
+}
+
+
 
 /**
   * below was throwing errors so it's commented out so we can fix other problems before coming back to it

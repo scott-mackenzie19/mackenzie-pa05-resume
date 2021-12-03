@@ -27,12 +27,12 @@ using namespace std;
 
 class rwfile {
 private:
-    vector<article> articles;
+    vector<string> stopWords;
     DSAvlTree<string, unordered_map<string, article>> wordTree;
 
 public:
-    void populate_tree(const string&);
-    void parse(const string&);
+    void populate_tree(const string& path);
+    void parse(const string& file);
     void tokenize_file(article&);
     void printTree(string, vector<pair<string, unordered_map<string, article>>>);
     void printPeople(string, vector<pair<string, unordered_map<string, article>>>);
@@ -44,6 +44,7 @@ public:
     DSAvlTree<string, unordered_map<string, article>> readTree(string);
     DSHash <string, vector<article>> readOrgs(string);
     DSHash <string, vector<article>> readPeople(string);
+    void loadStopWords(const string& fileName);
 };
 
 
