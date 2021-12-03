@@ -65,7 +65,8 @@ int main(int argc, char** argv) {
  * Doxygen Documentation, UML Class Diagram
  *
  * OFFICE HOURS:
+ * filesystem error
+ * work with std::hash
  * debug destructor
  * help with reading files back into map/tree
- * filesystem error
  */
