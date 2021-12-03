@@ -49,8 +49,6 @@ public:
     vector<pair<K, V>> levelOrder (AvlNode*);
     vector <pair<K, V>> populateVector();
     K getKey() {return this->key;}
-    void setKey(K key) {this->key = key;}
-
     DSAvlTree<K, V>& operator=(const DSAvlTree<K, V>& rhs) {}
 };
 

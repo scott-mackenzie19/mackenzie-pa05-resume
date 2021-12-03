@@ -9,18 +9,21 @@
 #include <string>
 #include <stdexcept>
 #include<vector>
+#include <unordered_set>
+#include <functional>
+
 using namespace std;
 
 template <typename K>
 struct KeyHash {
     // https://stackoverflow.com/questions/6709795/converting-string-to-ascii
     int operator()(const K& key) const {
-        int ascii = 0;
-        for (int i = 0; i < key.length(); i++) {
-            char x = key.at(i);
-            ascii+=int(x);
-        }
-        return ascii % TABLE_SIZE;
+//        int ascii = 0;
+//        for (int i = 0; i < key.length(); i++) {
+//            char x = key.at(i);
+//            ascii+=int(x);
+//        }
+        return std::hash<std::string>{}(key) % TABLE_SIZE;
     }
 };
 
@@ -60,11 +63,11 @@ public:
             table[i] = nullptr;
     }
     ~DSHash() {
-//        for (int i = 0; i < TABLE_SIZE; i++) {
-//            if (table[i] != nullptr)
-//                delete table[i];
-//        }
-//        delete[] table;
+        for (int i = 0; i < TABLE_SIZE; i++) {
+            if (table[i] != nullptr)
+                delete table[i];
+        }
+        delete[] table;
     }
     DSHash(const DSHash<K, V>& copy) {
         HashNode ** newTable;

@@ -136,46 +136,37 @@ void rwfile::printTree (string arg, vector<pair<string, unordered_map<string, ar
         output << vec[i].first << ";";
         auto it = vec[i].second.begin();
         while (it != vec[i].second.end()) {
-            output << it->second.getTitle() << ",";
-            output << it->second.getNumOccurences() << ",";
-            output << it->second.getID() << ",";
-            output << ":";
-            it++;
+            output << it->second.getID() << ":";
+            ++it;
         }
         output << endl;
     }
     output.close();
 }
 
-void rwfile::printPeople (string arg, vector<pair<string, unordered_map<string, article>>> vec) {
+void rwfile::printPeople (string arg, vector<pair<string, vector<article>>> vec) {
     ofstream output (arg);
     if(!output) exit (EXIT_FAILURE);
     for (int i = 0; i < vec.size(); i++) {
         output << vec[i].first << ";";
         auto it = vec[i].second.begin();
         while (it != vec[i].second.end()) {
-            output << it->second.getTitle() << ",";
-            output << it->second.getNumOccurences() << ",";
-            output << it->second.getID() << ",";
-            output << ":";
-            it++;
+            output << it->getID() << ":";
+            ++it;
         }
         output << endl;
     }
     output.close();
 }
 
-void rwfile::printOrgs (string arg, vector<pair<string, unordered_map<string, article>>> vec) {
+void rwfile::printOrgs (string arg, vector<pair<string, vector<article>>> vec) {
     ofstream output (arg);
     if(!output) exit (EXIT_FAILURE);
     for (int i = 0; i < vec.size(); i++) {
         output << vec[i].first << ";";
         auto it = vec[i].second.begin();
         while (it != vec[i].second.end()) {
-            output << it->second.getTitle() << ",";
-            output << it->second.getNumOccurences() << ",";
-            output << it->second.getID() << ",";
-            output << ":";
+            output << it->getID() << ":";
             it++;
         }
         output << endl;
@@ -205,39 +196,57 @@ void rwfile::loadStopWords(const string &fileName) {
   * below was throwing errors so it's commented out so we can fix other problems before coming back to it
   */
 
-//DSAvlTree<string, unordered_map<string, article>> rwfile::readTree(string arg) {
-//    ifstream input (arg);
-//    if (!input) exit (EXIT_FAILURE);
-//    DSAvlTree<string, unordered_map<string, article>> index_me;
-//    string key;
-//    while (!input.eof()) {
-//        getline (input, key, ';');
-//        index_me.setKey(key);
-//        while (/** still on same line */) {
-//            getline(input, index_me.second.setTitle(), ',');
-//            getline(input, index_me.second.setNumOccurences(), ',');
-//            getline(input, index_me.second.setID(), ':');
-//        }
-//        index_me.insert (key);
-//    }
-//}
+DSAvlTree<string, unordered_map<string, article>> rwfile::readTree(string arg) {
+    ifstream input (arg);
+    if (!input) exit (EXIT_FAILURE);
+    DSAvlTree<string, unordered_map<string, article>> index_me;
+    string str;
+    while (getline (input, str)) {
+        stringstream ss(str);
+        string temp;
+        getline(ss, temp, ';');
+        index_me.insert(temp);
+        string temp2;
+        while (getline(ss, temp2, ':')) {
+            // scott: insert values here
+        }
+    }
+}
 
+DSHash <string, vector<article>> rwfile::readPeople(string arg) {
+    ifstream input (arg);
+    if (!input) exit (EXIT_FAILURE);
+    DSHash <string, vector<article>> index_me;
+    vector<article> vec;
+    string str;
+    while (getline(input, str)) {
+        stringstream ss(str);
+        string temp;
+        getline (ss, temp, ';');
+        // temp is key
+        string temp2;
+        while (getline (ss, temp2, ':')) {
+            // temp2 is article ID. push back article associated with this ID into the vector
+        }
+        index_me.put(temp, vec);
+    }
+}
 
-
-//DSHash <string, vector<article>> rwfile::readOrgs(string arg) {
-//    ifstream input (arg);
-//    if (!input) exit (EXIT_FAILURE);
-//    DSHash <string, vector<article>> index_me;
-//    vector<article> vec;
-//    for (int i = 0; !input.eof(); i++) {
-//        // says no [] operator? how does this syntax work
-//        getline(input, index_me[i].first, ';');
-//        for (int j = 0; /** while still on same line*/ ;j++) {
-//            getline(input, index_me[i].second[j].setTitle(), ',');
-//            getline(input, index_me[i].second[j].setNumOccurrences(), ',');
-//            getline(input, index_me[i].second[j].setID(), ':');
-//            vec.push_back(index_me[i].second[j]);
-//        }
-//        index_me.put(first, second);
-//    }
-//}
+DSHash <string, vector<article>> rwfile::readOrgs(string arg) {
+    ifstream input (arg);
+    if (!input) exit (EXIT_FAILURE);
+    DSHash <string, vector<article>> index_me;
+    vector<article> vec;
+    string str;
+    while (getline(input, str)) {
+        stringstream ss(str);
+        string temp;
+        getline (ss, temp, ';');
+        // temp is key
+        string temp2;
+        while (getline (ss, temp2, ':')) {
+            // temp2 is article ID. push back article associated with this ID into the vector
+        }
+        index_me.put(temp, vec);
+    }
+}

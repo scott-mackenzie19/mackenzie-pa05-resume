@@ -16,7 +16,7 @@ int main(int argc, char** argv) {
     else {
         string path = argv[1];
         rwfile data;
-        data.loadStopWords(argv[3]);
+        //data.loadStopWords(argv[3]);
         data.populate_tree(path);
         unordered_map<string, article> ::iterator ptr;
         string word = argv[2];
@@ -28,7 +28,7 @@ int main(int argc, char** argv) {
             cout << endl << "Search Result " << count << ": " << ptr->second.getNumOccurences() << endl << endl;
             count++;
         }
-        data.printTree (argv[3], data.getTree().populateVector());
+        data.printTree ("output.txt", data.getTree().populateVector());
 //        data.printPeople ("outputPeople.txt", data.getPeople().populateVector());
 //        data.printOrgs ("outputOrgs.txt", data.getOrgs().populateVector());
 
@@ -41,18 +41,25 @@ int main(int argc, char** argv) {
 }
 
 /**TO DO:
- * WHOEVER:
- * fix dshash destructor - have fontenot help office hours tmrw
  *
  * SCOTT:
- * getters for people & orgs hash maps in rwfile
+ * move people & org hash maps from article to rwfile, basically parse them like you did the tree
  *
- * maybe make people and org hash maps to have value of vector of articles instead of just articles
+ * make people and org hash maps to have value of vector of articles instead of just articles
  *
- * setters for tree, people, and orgs so that reading in from file can create new tree
+ * speed hashing
+ *
+ * when printing tree back can you look at my comment and add functionality like how you did populate_tree?
+ * i'm not really sure how you added keys + values back into tree. also values in file are IDs but we need
+ * way to store pathway to these so users can read article after seeing title
+ *
+ * also when printing maps back look at my comment, how can we access article associated with ID and push
+ * that full article back?
+ *
+ * need to store pathway to files in persistency index
  *
  * KATE:
- * store hash map of person and hash map of org in file (written but untested)
+ * store hash map of person and hash map of org in file
  *
  * reading files back into trees or hash maps
  *
@@ -62,11 +69,5 @@ int main(int argc, char** argv) {
  *
  * boolean command args (this NOT that AND there)
  *
- * Doxygen Documentation, UML Class Diagram
- *
- * OFFICE HOURS:
- * filesystem error
- * work with std::hash
- * debug destructor
- * help with reading files back into map/tree
+ * Doxygen Documentation, UML Class Diagram]
  */
