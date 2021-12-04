@@ -130,13 +130,13 @@ V& DSAvlTree<K, V>::insertPrivate(AvlNode*& t, const K& x, V& y) {
         return t->val;
     }
     else if (x < t->key) {
-        V& temp = insertPrivate (t->left, x);
+        V& temp = insertPrivate (t->left, x, y);
         balance (t);
         t->height = 1 + max (height (t->left), height (t-> right));
         return temp;
     }
     else if (t -> key < x) {
-       V& temp= insertPrivate (t -> right, x);
+       V& temp= insertPrivate (t -> right, x, y);
        balance (t);
         t->height = 1 + max (height (t->left), height (t-> right));
        return temp;
