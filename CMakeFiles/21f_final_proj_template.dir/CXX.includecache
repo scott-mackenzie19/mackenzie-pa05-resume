@@ -27,6 +27,8 @@ unordered_set
 -
 functional
 -
+iostream
+-
 
 /mnt/c/Users/dalla/CLionProjects/21f-srch-ngn-kate-scott/article.h
 string
@@ -37,6 +39,8 @@ vector
 -
 unordered_map
 -
+
+/mnt/c/Users/dalla/CLionProjects/21f-srch-ngn-kate-scott/catch_setup.h
 
 /mnt/c/Users/dalla/CLionProjects/21f-srch-ngn-kate-scott/include/rapidjson/allocators.h
 rapidjson.h
@@ -284,6 +288,22 @@ stdexcept
 string
 -
 
+/mnt/c/Users/dalla/CLionProjects/21f-srch-ngn-kate-scott/main.cpp
+iostream
+-
+include/rapidjson/document.h
+/mnt/c/Users/dalla/CLionProjects/21f-srch-ngn-kate-scott/include/rapidjson/document.h
+porter2_stemmer.h
+/mnt/c/Users/dalla/CLionProjects/21f-srch-ngn-kate-scott/porter2_stemmer.h
+string
+-
+rwfile.h
+/mnt/c/Users/dalla/CLionProjects/21f-srch-ngn-kate-scott/rwfile.h
+catch_setup.h
+/mnt/c/Users/dalla/CLionProjects/21f-srch-ngn-kate-scott/catch_setup.h
+iterator
+-
+
 /mnt/c/Users/dalla/CLionProjects/21f-srch-ngn-kate-scott/porter2_stemmer.h
 vector
 -
@@ -291,16 +311,6 @@ string
 -
 include/util/string_view.h
 /mnt/c/Users/dalla/CLionProjects/21f-srch-ngn-kate-scott/include/util/string_view.h
-
-/mnt/c/Users/dalla/CLionProjects/21f-srch-ngn-kate-scott/rwfile.cpp
-rwfile.h
-/mnt/c/Users/dalla/CLionProjects/21f-srch-ngn-kate-scott/rwfile.h
-cctype
--
-sstream
--
-fstream
--
 
 /mnt/c/Users/dalla/CLionProjects/21f-srch-ngn-kate-scott/rwfile.h
 string

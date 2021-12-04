@@ -24,7 +24,7 @@ private:
         AvlNode(const K& theKey, const V& theVal, AvlNode* lt, AvlNode* rt, int h = 0): key(theKey), val(theVal), left(lt), right (rt), height (h) {}
     };
     AvlNode* root;
-    V& insertPrivate (AvlNode*&, const K&);
+    V& insertPrivate (AvlNode*&, const K&, V&);
     bool containsPrivate (AvlNode* c, K element) {
         if (c == nullptr) return false;
         else if (c->key == element) return true;
@@ -32,12 +32,13 @@ private:
         else return containsPrivate (c-> right, element);
     }
     DSAvlTree(const DSAvlTree<K, V>& rhs) {}
+    V& findPrivate (AvlNode*&, const K&);
 
 public:
     DSAvlTree(): root(nullptr) {}
     ~DSAvlTree() {makeEmpty(root);}
     void makeEmpty(AvlNode*);
-    V& insert (const K& x) {return insertPrivate (root, x);}
+    V& insert (const K& x, V& y) {return insertPrivate (root, x, y);}
     void balance (AvlNode*&);
     void rotateWithLeftChild (AvlNode*&);
     void rotateWithRightChild (AvlNode*&);
@@ -50,6 +51,7 @@ public:
     vector <pair<K, V>> populateVector();
     K getKey() {return this->key;}
     DSAvlTree<K, V>& operator=(const DSAvlTree<K, V>& rhs) {}
+    V& find (const K& x){return findPrivate(root, x);}
 };
 
 template <typename K, typename V>
@@ -121,23 +123,37 @@ int DSAvlTree<K, V>::max (int a, int b) {
 }
 
 template<typename K, typename V>
-V& DSAvlTree<K, V>::insertPrivate(AvlNode*& t, const K& x) {
+V& DSAvlTree<K, V>::insertPrivate(AvlNode*& t, const K& x, V& y) {
     if (t==nullptr) {
-        t = new AvlNode (x, nullptr, nullptr);
+        t = new AvlNode (x, y, nullptr, nullptr);
         t->height = 1 + max (height (t->left), height (t-> right));
         return t->val;
     }
     else if (x < t->key) {
-        V& temp = insertPrivate (t->left, x);
+        V& temp = insertPrivate (t->left, x, y);
         balance (t);
         t->height = 1 + max (height (t->left), height (t-> right));
         return temp;
     }
     else if (t -> key < x) {
-       V& temp= insertPrivate (t -> right, x);
-       balance (t);
+        V& temp= insertPrivate (t -> right, x, y);
+        balance (t);
         t->height = 1 + max (height (t->left), height (t-> right));
-       return temp;
+        return temp;
+    }
+    else return t->val;
+}
+
+template <typename K, typename V>
+V& DSAvlTree<K, V>::findPrivate (AvlNode*& t, const K& x) {
+    if (t==nullptr) {
+        throw ("does not exist");
+    }
+    else if (x < t->key) {
+        return findPrivate (t->left, x);
+    }
+    else if (t -> key < x) {
+        return findPrivate (t -> right, x);
     }
     else return t->val;
 }
