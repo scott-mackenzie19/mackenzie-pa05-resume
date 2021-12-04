@@ -16,8 +16,10 @@ int main(int argc, char** argv) {
     else {
         string path = argv[1];
         rwfile data;
-        //data.loadStopWords(argv[3]);
-        data.populate_tree(path);
+        //data.loadStopWords();
+        //data.populate_tree(path);
+        string pathius = argv[3];
+        data.readFromPersistence(pathius);
         unordered_map<string, article> ::iterator ptr;
         string word = argv[2];
         Porter2Stemmer::trim(word);
@@ -25,10 +27,10 @@ int main(int argc, char** argv) {
         unordered_map<string, article> temp = data.getTree().insert(word);
         int count = 1;
         for (ptr = temp.begin(); ptr != temp.end(); ptr++) {
-            cout << endl << "Search Result " << count << ": " << ptr->second.getNumOccurences() << endl << endl;
+            cout << endl << "Search Result " << count << ": " << ptr->second.getTitle() << endl << endl;
             count++;
         }
-        data.printTree ("output.txt", data.getTree().populateVector());
+       // data.printTree (argv[3], data.getTree().populateVector());
 //        data.printPeople ("outputPeople.txt", data.getPeople().populateVector());
 //        data.printOrgs ("outputOrgs.txt", data.getOrgs().populateVector());
 

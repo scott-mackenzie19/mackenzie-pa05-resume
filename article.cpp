@@ -72,3 +72,12 @@ void article::setOrganizations(DSHash<string, article>& table) {
 void article::setPeople(DSHash<string, article> &table) {
     //this->People = table;
 }
+
+void article::setPath(string &filepath) {
+    this->path = filepath;
+
+}
+
+string &article::getPath() {
+    return this->path;
+}

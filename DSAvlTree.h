@@ -149,7 +149,6 @@ vector<pair<K, V>> DSAvlTree<K, V>::levelOrder (AvlNode* n) {
     q.push(n);
     vector<pair<K, V>> vec;
     while (!q.empty()) {
-        cout << "here" << endl;
         AvlNode *curr = q.front();
         q.pop();
         if (curr->right != nullptr && curr->left != nullptr) {

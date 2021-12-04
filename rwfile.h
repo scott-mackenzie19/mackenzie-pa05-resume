@@ -44,7 +44,8 @@ public:
     DSAvlTree<string, unordered_map<string, article>> readTree(string);
     DSHash <string, vector<article>> readPeople(string);
     DSHash <string, vector<article>> readOrgs(string);
-    void loadStopWords(const string& fileName);
+    void loadStopWords();
+    void readFromPersistence(string& output);
 };
 
 
