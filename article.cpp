@@ -19,14 +19,6 @@ void article::setBody(string& body1) {
 
 }
 
-void article::addPeople(string& Person, article Art) {
-    //People.put(Person, Art);
-}
-
-void article::addOrg(string& Organization, article Art) {
-    //People.put(Organization, Art);
-}
-
 string& article:: getID() {
     return this->ID;
 }
@@ -55,22 +47,6 @@ void article::increment() {
 void article::setNum(int &num) {
     numOccurences = num;
 
-}
-
-DSHash<string, article> &article::getOrganizationsHash() {
-   // return this->Organizations;
-}
-
-DSHash<string, article> &article::getPeopleHash() {
-   // return this->People;
-}
-
-void article::setOrganizations(DSHash<string, article>& table) {
-   // this->Organizations = table;
-}
-
-void article::setPeople(DSHash<string, article> &table) {
-    //this->People = table;
 }
 
 void article::setPath(string &filepath) {

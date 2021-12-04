@@ -136,10 +136,24 @@ V& DSAvlTree<K, V>::insertPrivate(AvlNode*& t, const K& x, V& y) {
         return temp;
     }
     else if (t -> key < x) {
-        V& temp= insertPrivate (t -> right, x, y);
-        balance (t);
+       V& temp= insertPrivate (t -> right, x, y);
+       balance (t);
         t->height = 1 + max (height (t->left), height (t-> right));
         return temp;
+    }
+    else return t->val;
+}
+
+template <typename K, typename V>
+V& DSAvlTree<K, V>::findPrivate (AvlNode*& t, const K& x) {
+    if (t==nullptr) {
+        throw ("does not exist");
+    }
+    else if (x < t->key) {
+        return findPrivate (t->left, x);
+    }
+    else if (t -> key < x) {
+        return findPrivate (t -> right, x);
     }
     else return t->val;
 }

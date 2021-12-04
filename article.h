@@ -17,23 +17,14 @@ private :
     string titleName;
     string body;
     string path;
-    // should value be vector of articles? instead of just article?
-    //DSHash<string, article> People;
-    //DSHash<string, article> Organizations;
     int numOccurences;
 
 public:
     void setID(string&);
     void setTitle(string&);
     void setBody(string&);
-    void setPath(string & filepath);
-    void setPeople(DSHash<string, article>& table);
-    void setOrganizations(DSHash<string, article>& table);
-    DSHash<string, article>& getPeopleHash();
-    DSHash<string, article>& getOrganizationsHash();
+    void setPath(string & );
     void increment();
-    void addPeople(string&, article);
-    void addOrg(string&, article);
     string& getID();
     string& getTitle();
     string& getBody();
