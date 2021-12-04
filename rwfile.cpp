@@ -24,12 +24,20 @@ void rwfile::setOrganizations(DSHash<string, vector<article>>& table) {
 void rwfile::setPeople(DSHash<string, vector<article>> &table) {
     this->People = table;
 }
-void rwfile::addPeople(string& Person, vector<article> vec) {
-    People.put(Person, vec);
+void rwfile::addPeople(string& Person, article art) {
+    vector <article> vec;
+    vec.push_back(art);
+    // if not contains, put, if contains, second.push_back
+   if (!People.get(Person)) People.put(Person, vec);
+   else People.at(Person).push_back(art);
 }
 
-void rwfile::addOrg(string& Organization, vector<article> vec) {
-    People.put(Organization, vec);
+void rwfile::addOrg(string& Org, article art) {
+    vector <article> vec;
+    vec.push_back(art);
+    // if not contains, put, if contains, second.push_back
+    if (!Organizations.get(Org)) Organizations.put(Org, vec);
+    else Organizations.at(Org).push_back(art);
 }
 
 void rwfile::parse(const string& filename) {
@@ -177,7 +185,7 @@ void rwfile::printPeople (string arg, vector<pair<string, vector<article>>> vec)
         output << vec[i].first << ";";
         auto it = vec[i].second.begin();
         while (it != vec[i].second.end()) {
-            output << it->getPath() << it->getNumOccurences() << ":";
+            output << it->getPath() <<"~"<< it->getNumOccurences() << ":";
             ++it;
         }
         output << endl;
@@ -192,7 +200,7 @@ void rwfile::printOrgs (string arg, vector<pair<string, vector<article>>> vec) {
         output << vec[i].first << ";";
         auto it = vec[i].second.begin();
         while (it != vec[i].second.end()) {
-            output << it->getPath() << it->getNumOccurences() << ":";
+            output << it->getPath() << "~" << it->getNumOccurences() << ":";
             it++;
         }
         output << endl;
@@ -888,43 +896,74 @@ void rwfile::readTree(string arg) {
     }
 }
 
-DSHash <string, vector<article>> rwfile::readPeople(string arg) {
+void rwfile::readPeople(string arg) {
     ifstream input (arg);
     if (!input) exit (EXIT_FAILURE);
-    DSHash <string, vector<article>> index_me;
-    vector<article> vec;
     string str;
-    while (getline(input, str)) {
+    while (getline (input, str)) {
         stringstream ss(str);
         string temp;
-        getline (ss, temp, ';');
-        // temp is key
+        getline(ss, temp, ';');
         string temp2;
-        while (getline (ss, temp2, ':')) {
-            // temp2 is article ID. push back article associated with this ID into the vector
-            // vec.push_back(temp2);
+        while (getline(ss, temp2, ':')) {
+            string path = temp2.substr(0, temp2.find('~'));
+            int numOccurrences = stoi(temp2.substr(temp2.find('~') + 1));
+            FILE *fp = fopen(path.c_str(), "rb");
+            char buffer[35540];
+            FileReadStream ifss(fp, buffer, sizeof(buffer));
+            Document document;
+            document.ParseStream(ifss);
+            if (!document.IsObject()) {
+                return;
+            }
+            article art1; //article object created
+            string paperID = document["uuid"].GetString();
+            string titleName = document["title"].GetString();
+            string body_text = document["text"].GetString();
+            art1.setID(paperID); //ID set in article object
+            art1.setTitle(titleName); //title set in article object
+            art1.setBody(body_text); //body set in article object
+            art1.setNum(numOccurrences);
+            string filePath = path;
+            art1.setPath(filePath);
+
+            addPeople (temp, art1);
         }
-        index_me.put(temp, vec);
     }
-    return index_me;
 }
 
-DSHash <string, vector<article>> rwfile::readOrgs(string arg) {
+void rwfile::readOrgs(string arg) {
     ifstream input (arg);
     if (!input) exit (EXIT_FAILURE);
-    DSHash <string, vector<article>> index_me;
-    vector<article> vec;
     string str;
-    while (getline(input, str)) {
+    while (getline (input, str)) {
         stringstream ss(str);
         string temp;
-        getline (ss, temp, ';');
-        // temp is key
+        getline(ss, temp, ';');
         string temp2;
-        while (getline (ss, temp2, ':')) {
-            // temp2 is article ID. push back article associated with this ID into the vector
+        while (getline(ss, temp2, ':')) {
+            string path = temp2.substr(0, temp2.find('~'));
+            int numOccurrences = stoi(temp2.substr(temp2.find('~') + 1));
+            FILE *fp = fopen(path.c_str(), "rb");
+            char buffer[35540];
+            FileReadStream ifss(fp, buffer, sizeof(buffer));
+            Document document;
+            document.ParseStream(ifss);
+            if (!document.IsObject()) {
+                return;
+            }
+            article art1; //article object created
+            string paperID = document["uuid"].GetString();
+            string titleName = document["title"].GetString();
+            string body_text = document["text"].GetString();
+            art1.setID(paperID); //ID set in article object
+            art1.setTitle(titleName); //title set in article object
+            art1.setBody(body_text); //body set in article object
+            art1.setNum(numOccurrences);
+            string filePath = path;
+            art1.setPath(filePath);
+
+            addOrg (temp, art1);
         }
-        index_me.put(temp, vec);
     }
-    return index_me;
 }

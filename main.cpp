@@ -16,12 +16,15 @@ int main(int argc, char** argv) {
         rwfile data;
         data.loadStopWords();
         data.populate_tree(path);
-        string pathius = "beech";
-        data.readFromPersistence(pathius);
+        string pathius = argv[3];
         unordered_map<string, article> ::iterator ptr;
         string word = argv[2];
         Porter2Stemmer::trim(word);
         Porter2Stemmer::stem(word);
+        if (!data.getTree().contains(word)) {
+            cout << "no documents" << endl;
+            return 1;
+        }
         unordered_map<string, article> temp = data.getTree().find(word);
         int count = 1;
         for (ptr = temp.begin(); ptr != temp.end(); ptr++) {
@@ -29,12 +32,12 @@ int main(int argc, char** argv) {
             count++;
         }
         data.printTree ("output.txt", data.getTree().populateVector());
-//        data.printPeople ("outputPeople.txt", data.getPeopleHash().populateVector());
-//        data.printOrgs ("outputOrgs.txt", data.getOrganizationsHash().populateVector());
+        data.printPeople ("outputPeople.txt", data.getPeopleHash().populateVector());
+        data.printOrgs ("outputOrgs.txt", data.getOrganizationsHash().populateVector());
 
-//        data.readTree("output.txt");
-//        data.readPeople("outputPeople.txt");
-//        data.readOrgs("outputOrgs.txt");
+        data.readTree("output.txt");
+        data.readPeople("outputPeople.txt");
+        data.readOrgs("outputOrgs.txt");
 
         return 0;
     }

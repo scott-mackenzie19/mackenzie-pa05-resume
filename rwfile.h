@@ -37,8 +37,8 @@ public:
     void setOrganizations(DSHash<string, vector<article>>&);
     DSHash<string, vector<article>>& getPeopleHash();
     DSHash<string, vector<article>>& getOrganizationsHash();
-    void addPeople(string&, vector<article>);
-    void addOrg(string&, vector<article>);
+    void addPeople(string&, article);
+    void addOrg(string&, article);
     void populate_tree(const string& path);
     void parse(const string& file);
     void tokenize_file(article&);
@@ -50,10 +50,9 @@ public:
     // get people
     // get orgs
     void readTree(string);
-    DSHash <string, vector<article>> readPeople(string);
-    DSHash <string, vector<article>> readOrgs(string);
+    void readPeople(string);
+    void readOrgs(string);
     void loadStopWords();
-    void readFromPersistence(string& output);
 };
 
 
