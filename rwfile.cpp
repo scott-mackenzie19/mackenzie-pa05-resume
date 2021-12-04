@@ -10,21 +10,21 @@ using namespace rapidjson;
 #include <sstream>
 #include <fstream>
 
-DSHash<string, article> &rwfile::getOrganizationsHash() {
-    // return this->Organizations;
+DSHash<string, vector<article>> &rwfile::getOrganizationsHash() {
+     return this->Organizations;
 }
 
-DSHash<string, article> &rwfile::getPeopleHash() {
-    // return this->People;
+DSHash<string, vector<article>> &rwfile::getPeopleHash() {
+    return this->People;
 }
-void rwfile::setOrganizations(DSHash<string, article>& table) {
-    // this->Organizations = table;
+void rwfile::setOrganizations(DSHash<string, vector<article>>& table) {
+    this->Organizations = table;
 }
 
 void rwfile::setPeople(DSHash<string, vector<article>> &table) {
-    //this->People = table;
+    this->People = table;
 }
-void rwfile::addPeople(string& Person, article vec) {
+void rwfile::addPeople(string& Person, vector<article> vec) {
     People.put(Person, vec);
 }
 
