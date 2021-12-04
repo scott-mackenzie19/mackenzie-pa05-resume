@@ -29,8 +29,16 @@ class rwfile {
 private:
     vector<string> stopWords;
     DSAvlTree<string, unordered_map<string, article>> wordTree;
+    DSHash<string, vector <article>> People;
+    DSHash<string, vector<article>> Organizations;
 
 public:
+    void setPeople(DSHash<string, vector<article>>&);
+    void setOrganizations(DSHash<string, vector<article>>&);
+    DSHash<string, vector<article>>& getPeopleHash();
+    DSHash<string, vector<article>>& getOrganizationsHash();
+    void addPeople(string&, vector<article>);
+    void addOrg(string&, vector<article>);
     void populate_tree(const string& path);
     void parse(const string& file);
     void tokenize_file(article&);

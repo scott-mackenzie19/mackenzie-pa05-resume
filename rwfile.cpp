@@ -10,6 +10,28 @@ using namespace rapidjson;
 #include <sstream>
 #include <fstream>
 
+DSHash<string, article> &rwfile::getOrganizationsHash() {
+    // return this->Organizations;
+}
+
+DSHash<string, article> &rwfile::getPeopleHash() {
+    // return this->People;
+}
+void rwfile::setOrganizations(DSHash<string, article>& table) {
+    // this->Organizations = table;
+}
+
+void rwfile::setPeople(DSHash<string, vector<article>> &table) {
+    //this->People = table;
+}
+void rwfile::addPeople(string& Person, article vec) {
+    People.put(Person, vec);
+}
+
+void rwfile::addOrg(string& Organization, vector<article> vec) {
+    People.put(Organization, vec);
+}
+
 void rwfile::parse(const string& filename) {
     ///
     ///used TA Christian's reference
@@ -828,11 +850,6 @@ void rwfile::loadStopWords() {
 }
 
 
-
-/**
-  * below was throwing errors so it's commented out so we can fix other problems before coming back to it
-  */
-
 void rwfile::readTree(string arg) {
     ifstream input (arg);
     if (!input) exit (EXIT_FAILURE);
@@ -843,15 +860,31 @@ void rwfile::readTree(string arg) {
         getline(ss, temp, ';');
         string temp2;
         while (getline(ss, temp2, ':')) {
-            article art;
+            string path = temp2.substr(0, temp2.find('~'));
+            int numOccurrences = stoi(temp2.substr(temp2.find('~') + 1));
+            FILE * fp = fopen(path.c_str(), "rb");
+            char buffer [35540];
+            FileReadStream ifss(fp, buffer, sizeof(buffer));
+            Document document;
+            document.ParseStream(ifss);
+            if (!document.IsObject()) {
+                return;
+            }
+            article art1; //article object created
+            string paperID = document["uuid"].GetString();
+            string titleName = document["title"].GetString();
+            string body_text = document["text"].GetString();
+            art1.setID(paperID); //ID set in article object
+            art1.setTitle(titleName); //title set in article object
+            art1.setBody(body_text); //body set in article object
+            art1.setNum(numOccurrences);
+            string filePath = path;
+            art1.setPath(filePath);
 
-            ifstream in(temp2);
-            rapidjson::Document doc(in);
             // scott: insert values here, temp2 contains value
             unordered_map<string, article> index_me;
-            wordTree.insert(temp, index_me);
+            wordTree.insert(temp, index_me).insert(make_pair(art1.getID(), art1));
         }
-        cout << "hi";
     }
 }
 
@@ -894,48 +927,4 @@ DSHash <string, vector<article>> rwfile::readOrgs(string arg) {
         index_me.put(temp, vec);
     }
     return index_me;
-}
-
-void rwfile::readFromPersistence(string& output) {
-    //this->wordTree.clear();
-    ifstream ifss;
-    ifss.open(output);
-    while (ifss.good()) {
-        string line;
-        getline(ifss, line);
-        stringstream ss(line);
-        string term;
-        getline(ss, term, ';');
-        while (ss.good()) {
-            article tempDoc;
-            string ID;
-            getline(ss, ID, '~');
-            string title;
-            getline(ss, title, '~');
-            string counter;
-            getline(ss, counter, '~');
-            tempDoc.setID(ID);
-            tempDoc.setTitle(title);
-            cout << counter << endl;
-            if (!counter.empty()) {
-                int counter2 = stoi(counter);
-                tempDoc.setNum(counter2);
-            }
-            if (title.empty()) {
-                continue;
-            }
-            unordered_map<string, article>*  ptr= &wordTree.insert(term);
-            if (ptr->empty()) {
-                ptr->insert(make_pair(ID, tempDoc));
-            }
-            else {
-                if (ptr->find(ID) == ptr->end()) {
-                    ptr->insert(make_pair(ID, tempDoc));
-                }
-                else {
-                    continue;
-                }
-            }
-        }
-    }
 }

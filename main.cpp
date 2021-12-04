@@ -29,8 +29,8 @@ int main(int argc, char** argv) {
             count++;
         }
         data.printTree ("output.txt", data.getTree().populateVector());
-//        data.printPeople ("outputPeople.txt", data.getPeople().populateVector());
-//        data.printOrgs ("outputOrgs.txt", data.getOrgs().populateVector());
+//        data.printPeople ("outputPeople.txt", data.getPeopleHash().populateVector());
+//        data.printOrgs ("outputOrgs.txt", data.getOrganizationsHash().populateVector());
 
 //        data.readTree("output.txt");
 //        data.readPeople("outputPeople.txt");
@@ -41,6 +41,9 @@ int main(int argc, char** argv) {
 }
 
 /**TO DO:
+ *
+ * avl tree of words and article IDs as strings
+ * unordered map of articles with that ID as the key and object as value
  *
  * SCOTT:
  * move people & org hash maps from article to rwfile, basically populate them like you did the tree

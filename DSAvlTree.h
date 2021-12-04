@@ -51,7 +51,7 @@ public:
     vector <pair<K, V>> populateVector();
     K getKey() {return this->key;}
     DSAvlTree<K, V>& operator=(const DSAvlTree<K, V>& rhs) {}
-    V& find (const K& x){return findPrivate(root, x)};
+    V& find (const K& x){return findPrivate(root, x);}
 };
 
 template <typename K, typename V>
