@@ -895,7 +895,7 @@ DSHash <string, vector<article>> rwfile::readOrgs(string arg) {
     }
     return index_me;
 }
-
+/*
 void rwfile::readFromPersistence(string& output) {
     //this->wordTree.clear();
     ifstream ifss;
@@ -939,3 +939,4 @@ void rwfile::readFromPersistence(string& output) {
         }
     }
 }
+*/
