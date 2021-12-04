@@ -41,7 +41,7 @@ public:
     void set_tree( DSAvlTree<string, unordered_map<string, article>>& tree);
     // get people
     // get orgs
-    DSAvlTree<string, unordered_map<string, article>> readTree(string);
+    void readTree(string);
     DSHash <string, vector<article>> readPeople(string);
     DSHash <string, vector<article>> readOrgs(string);
     void loadStopWords();

@@ -101,26 +101,29 @@ void rwfile::tokenize_file(article& file) {
                 }
             }
             Porter2Stemmer::stem(word);
-            unordered_map<string, article>*  ptr= &wordTree.insert(word);
-            if (ptr->empty()) { //if map of word empty
-                int num = 0;
-                temp1.setNum(num);
-                temp1.increment();
-                ptr->insert(make_pair(file.getID(), temp1));
-            }
-            else { //if map not empty
-                if (ptr->find(file.getID()) == ptr->end()) {
-                    int num = 0;
-                    temp1.setNum(num);
-                    //if find function returns last ID, file not found, and file appended
-                    temp1.increment();
-                    ptr->insert(make_pair(file.getID(), temp1));
-                }
-                else { //if file found
-                    ptr->find(file.getID())->second.increment();
-                    //cout << ptr->find(file.getID())->second.getNumOccurences() << endl;
-                }
-            }
+            unordered_map<string, article> value;
+            wordTree.insert(word, value).insert(make_pair(file.getID(), temp1));
+
+//            unordered_map<string, article>*  ptr= &wordTree.insert(word);
+//            if (ptr->empty()) { //if map of word empty
+//                int num = 0;
+//                temp1.setNum(num);
+//                temp1.increment();
+//                ptr->insert(make_pair(file.getID(), temp1));
+//            }
+//            else { //if map not empty
+//                if (ptr->find(file.getID()) == ptr->end()) {
+//                    int num = 0;
+//                    temp1.setNum(num);
+//                    //if find function returns last ID, file not found, and file appended
+//                    temp1.increment();
+//                    ptr->insert(make_pair(file.getID(), temp1));
+//                }
+//                else { //if file found
+//                    ptr->find(file.getID())->second.increment();
+//                    //cout << ptr->find(file.getID())->second.getNumOccurences() << endl;
+//                }
+//            }
         }
     }
 
@@ -137,7 +140,7 @@ void rwfile::printTree (string arg, vector<pair<string, unordered_map<string, ar
         output << vec[i].first << ";";
         auto it = vec[i].second.begin();
         while (it != vec[i].second.end()) {
-            output << it->second.getID()<< "~"<< it->second.getTitle()<< "~"<< it->second.getNumOccurences()<< "~";
+            output << it->second.getPath()<< "~"<< it->second.getNumOccurences()<< ":";
             ++it;
         }
         output << endl;
@@ -152,7 +155,7 @@ void rwfile::printPeople (string arg, vector<pair<string, vector<article>>> vec)
         output << vec[i].first << ";";
         auto it = vec[i].second.begin();
         while (it != vec[i].second.end()) {
-            output << it->getID() << ":";
+            output << it->getPath() << it->getNumOccurences() << ":";
             ++it;
         }
         output << endl;
@@ -167,7 +170,7 @@ void rwfile::printOrgs (string arg, vector<pair<string, vector<article>>> vec) {
         output << vec[i].first << ";";
         auto it = vec[i].second.begin();
         while (it != vec[i].second.end()) {
-            output << it->getID() << ":";
+            output << it->getPath() << it->getNumOccurences() << ":";
             it++;
         }
         output << endl;
@@ -830,19 +833,23 @@ void rwfile::loadStopWords() {
   * below was throwing errors so it's commented out so we can fix other problems before coming back to it
   */
 
-DSAvlTree<string, unordered_map<string, article>> rwfile::readTree(string arg) {
+void rwfile::readTree(string arg) {
     ifstream input (arg);
     if (!input) exit (EXIT_FAILURE);
-    DSAvlTree<string, unordered_map<string, article>> index_me;
     string str;
     while (getline (input, str)) {
         stringstream ss(str);
         string temp;
         getline(ss, temp, ';');
-        index_me.insert(temp);
         string temp2;
         while (getline(ss, temp2, ':')) {
-            // scott: insert values here
+            article art;
+
+            ifstream in(temp2);
+            rapidjson::Document doc(in);
+            // scott: insert values here, temp2 contains value
+            unordered_map<string, article> index_me;
+            wordTree.insert(temp, index_me);
         }
     }
 }
@@ -861,9 +868,11 @@ DSHash <string, vector<article>> rwfile::readPeople(string arg) {
         string temp2;
         while (getline (ss, temp2, ':')) {
             // temp2 is article ID. push back article associated with this ID into the vector
+            // vec.push_back(temp2);
         }
         index_me.put(temp, vec);
     }
+    return index_me;
 }
 
 DSHash <string, vector<article>> rwfile::readOrgs(string arg) {
@@ -883,6 +892,7 @@ DSHash <string, vector<article>> rwfile::readOrgs(string arg) {
         }
         index_me.put(temp, vec);
     }
+    return index_me;
 }
 
 void rwfile::readFromPersistence(string& output) {

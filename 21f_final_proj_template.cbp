@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6"/>
+	<Project>
+		<Option title="21f_final_proj_template"/>
+		<Option makefile_is_custom="1"/>
+		<Option compiler="gcc"/>
+		<Option virtualFolders="CMake Files\;"/>
+		<Build>
+			<Target title="all">
+				<Option working_dir="/Users/katebouis/Desktop/cs2341/21f-srch-ngn-kate-scott"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -f &quot;/Users/katebouis/Desktop/cs2341/21f-srch-ngn-kate-scott/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="/usr/bin/make -f &quot;/Users/katebouis/Desktop/cs2341/21f-srch-ngn-kate-scott/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -f &quot;/Users/katebouis/Desktop/cs2341/21f-srch-ngn-kate-scott/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -f &quot;/Users/katebouis/Desktop/cs2341/21f-srch-ngn-kate-scott/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="rebuild_cache">
+				<Option working_dir="/Users/katebouis/Desktop/cs2341/21f-srch-ngn-kate-scott"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -f &quot;/Users/katebouis/Desktop/cs2341/21f-srch-ngn-kate-scott/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="/usr/bin/make -f &quot;/Users/katebouis/Desktop/cs2341/21f-srch-ngn-kate-scott/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -f &quot;/Users/katebouis/Desktop/cs2341/21f-srch-ngn-kate-scott/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -f &quot;/Users/katebouis/Desktop/cs2341/21f-srch-ngn-kate-scott/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="edit_cache">
+				<Option working_dir="/Users/katebouis/Desktop/cs2341/21f-srch-ngn-kate-scott"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -f &quot;/Users/katebouis/Desktop/cs2341/21f-srch-ngn-kate-scott/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="/usr/bin/make -f &quot;/Users/katebouis/Desktop/cs2341/21f-srch-ngn-kate-scott/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -f &quot;/Users/katebouis/Desktop/cs2341/21f-srch-ngn-kate-scott/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -f &quot;/Users/katebouis/Desktop/cs2341/21f-srch-ngn-kate-scott/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="21f_final_proj_template">
+				<Option output="/Users/katebouis/Desktop/cs2341/21f-srch-ngn-kate-scott/21f_final_proj_template" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/katebouis/Desktop/cs2341/21f-srch-ngn-kate-scott"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -f &quot;/Users/katebouis/Desktop/cs2341/21f-srch-ngn-kate-scott/Makefile&quot;  VERBOSE=1 21f_final_proj_template"/>
+					<CompileFile command="/usr/bin/make -f &quot;/Users/katebouis/Desktop/cs2341/21f-srch-ngn-kate-scott/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -f &quot;/Users/katebouis/Desktop/cs2341/21f-srch-ngn-kate-scott/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -f &quot;/Users/katebouis/Desktop/cs2341/21f-srch-ngn-kate-scott/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="21f_final_proj_template/fast">
+				<Option output="/Users/katebouis/Desktop/cs2341/21f-srch-ngn-kate-scott/21f_final_proj_template" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/katebouis/Desktop/cs2341/21f-srch-ngn-kate-scott"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -f &quot;/Users/katebouis/Desktop/cs2341/21f-srch-ngn-kate-scott/Makefile&quot;  VERBOSE=1 21f_final_proj_template/fast"/>
+					<CompileFile command="/usr/bin/make -f &quot;/Users/katebouis/Desktop/cs2341/21f-srch-ngn-kate-scott/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -f &quot;/Users/katebouis/Desktop/cs2341/21f-srch-ngn-kate-scott/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -f &quot;/Users/katebouis/Desktop/cs2341/21f-srch-ngn-kate-scott/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+		</Build>
+		<Unit filename="/Users/katebouis/Desktop/cs2341/21f-srch-ngn-kate-scott/DSAvlTree.h">
+			<Option target="21f_final_proj_template"/>
+		</Unit>
+		<Unit filename="/Users/katebouis/Desktop/cs2341/21f-srch-ngn-kate-scott/DSHash.h">
+			<Option target="21f_final_proj_template"/>
+		</Unit>
+		<Unit filename="/Users/katebouis/Desktop/cs2341/21f-srch-ngn-kate-scott/DSLinkedList.h">
+			<Option target="21f_final_proj_template"/>
+		</Unit>
+		<Unit filename="/Users/katebouis/Desktop/cs2341/21f-srch-ngn-kate-scott/article.cpp">
+			<Option target="21f_final_proj_template"/>
+		</Unit>
+		<Unit filename="/Users/katebouis/Desktop/cs2341/21f-srch-ngn-kate-scott/article.h">
+			<Option target="21f_final_proj_template"/>
+		</Unit>
+		<Unit filename="/Users/katebouis/Desktop/cs2341/21f-srch-ngn-kate-scott/catch_setup.cpp">
+			<Option target="21f_final_proj_template"/>
+		</Unit>
+		<Unit filename="/Users/katebouis/Desktop/cs2341/21f-srch-ngn-kate-scott/catch_setup.h">
+			<Option target="21f_final_proj_template"/>
+		</Unit>
+		<Unit filename="/Users/katebouis/Desktop/cs2341/21f-srch-ngn-kate-scott/main.cpp">
+			<Option target="21f_final_proj_template"/>
+		</Unit>
+		<Unit filename="/Users/katebouis/Desktop/cs2341/21f-srch-ngn-kate-scott/porter2_stemmer.cpp">
+			<Option target="21f_final_proj_template"/>
+		</Unit>
+		<Unit filename="/Users/katebouis/Desktop/cs2341/21f-srch-ngn-kate-scott/porter2_stemmer.h">
+			<Option target="21f_final_proj_template"/>
+		</Unit>
+		<Unit filename="/Users/katebouis/Desktop/cs2341/21f-srch-ngn-kate-scott/query.cpp">
+			<Option target="21f_final_proj_template"/>
+		</Unit>
+		<Unit filename="/Users/katebouis/Desktop/cs2341/21f-srch-ngn-kate-scott/query.h">
+			<Option target="21f_final_proj_template"/>
+		</Unit>
+		<Unit filename="/Users/katebouis/Desktop/cs2341/21f-srch-ngn-kate-scott/rwfile.cpp">
+			<Option target="21f_final_proj_template"/>
+		</Unit>
+		<Unit filename="/Users/katebouis/Desktop/cs2341/21f-srch-ngn-kate-scott/rwfile.h">
+			<Option target="21f_final_proj_template"/>
+		</Unit>
+		<Unit filename="/Users/katebouis/Desktop/cs2341/21f-srch-ngn-kate-scott/tests.cpp">
+			<Option target="21f_final_proj_template"/>
+		</Unit>
+		<Unit filename="/Users/katebouis/Desktop/cs2341/21f-srch-ngn-kate-scott/word.cpp">
+			<Option target="21f_final_proj_template"/>
+		</Unit>
+		<Unit filename="/Users/katebouis/Desktop/cs2341/21f-srch-ngn-kate-scott/word.h">
+			<Option target="21f_final_proj_template"/>
+		</Unit>
+		<Unit filename="/Users/katebouis/Desktop/cs2341/21f-srch-ngn-kate-scott/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\"/>
+		</Unit>
+	</Project>
+</CodeBlocks_project_file>
