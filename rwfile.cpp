@@ -881,7 +881,6 @@ void rwfile::loadStopWords() {
     }
 }
 
-
 void rwfile::readTree(string arg) {
     ifstream input(arg);
     if (!input) exit(EXIT_FAILURE);

@@ -17,7 +17,7 @@ int main(int argc, char** argv) {
         data.loadStopWords();
         data.populate_tree(path);
         data.readPeople("outputPeople.txt");
-        cout << data.getPeopleHash().at("walmart") << endl;
+        //cout << data.getPeopleHash().at("walmart") << endl;
         string pathius = argv[3];
         unordered_map<string, article> ::iterator ptr;
         string word = argv[2];
