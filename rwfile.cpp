@@ -851,6 +851,7 @@ void rwfile::readTree(string arg) {
             unordered_map<string, article> index_me;
             wordTree.insert(temp, index_me);
         }
+        cout << "hi";
     }
 }
 
