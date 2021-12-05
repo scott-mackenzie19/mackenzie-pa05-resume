@@ -7,7 +7,7 @@
 #include "string"
 #include "DSHash.h"
 using namespace std;
-/*
+
 TEST_CASE ("DSAvlTree") {
     DSAvlTree<string, int> tree;
     // globally create tree
@@ -39,4 +39,4 @@ TEST_CASE ("DSHash") {
         REQUIRE (hash["key"] == 2);
         REQUIRE (hash["hello"] != 4);
     }
-}*/
+}

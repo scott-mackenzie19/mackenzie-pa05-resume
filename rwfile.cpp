@@ -13,7 +13,7 @@ using namespace rapidjson;
 #include <fstream>
 
 DSHash<string, vector<article>> &rwfile::getOrganizationsHash() {
-    return this->Organizations;
+     return this->Organizations;
 }
 
 DSHash<string, vector<article>> &rwfile::getPeopleHash() {
@@ -158,26 +158,26 @@ void rwfile::tokenize_file(article &file) {
             unordered_map<string, article> value;
             wordTree.insert(word, value).insert(make_pair(file.getID(), temp1));
 
-//            unordered_map<string, article>*  ptr= &wordTree.insert(word);
-//            if (ptr->empty()) { //if map of word empty
-//                int num = 0;
-//                temp1.setNum(num);
-//                temp1.increment();
-//                ptr->insert(make_pair(file.getID(), temp1));
-//            }
-//            else { //if map not empty
-//                if (ptr->find(file.getID()) == ptr->end()) {
-//                    int num = 0;
-//                    temp1.setNum(num);
-//                    //if find function returns last ID, file not found, and file appended
-//                    temp1.increment();
-//                    ptr->insert(make_pair(file.getID(), temp1));
-//                }
-//                else { //if file found
-//                    ptr->find(file.getID())->second.increment();
-//                    //cout << ptr->find(file.getID())->second.getNumOccurences() << endl;
-//                }
-//            }
+            unordered_map<string, article>*  ptr= &wordTree.insert(word, value);
+            if (ptr->empty()) { //if map of word empty
+                int num = 0;
+                temp1.setNum(num);
+                temp1.increment();
+                ptr->insert(make_pair(file.getID(), temp1));
+            }
+            else { //if map not empty
+                if (ptr->find(file.getID()) == ptr->end()) {
+                    int num = 0;
+                    temp1.setNum(num);
+                    //if find function returns last ID, file not found, and file appended
+                    temp1.increment();
+                    ptr->insert(make_pair(file.getID(), temp1));
+                }
+                else { //if file found
+                    ptr->find(file.getID())->second.increment();
+                    //cout << ptr->find(file.getID())->second.getNumOccurences() << endl;
+                }
+            }
         }
     }
 
