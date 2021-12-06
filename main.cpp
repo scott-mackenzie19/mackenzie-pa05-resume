@@ -20,7 +20,6 @@ int main(int argc, char** argv) {
       //  data.populate_tree(path);
       //  data.printTree ("output.txt", data.getTree().populateVector());
         data.readTree(output);
-        //data.readPeople("outputPeople.txt");
         //string person = "guthrie";
         //cout << data.getPeopleHash().at(person).at(0).getTitle() << endl;
         unordered_map<string, article> ::iterator ptr;
@@ -57,17 +56,6 @@ int main(int argc, char** argv) {
             count++;
             fclose(fp);
         }
-
-        //data.printTree (output, data.getTree().populateVector());
-
-       // data.printTree (output, data.getTree().populateVector());
-        data.printPeople ("outputPeople.txt", data.getPeopleHash().populateVector());
-        data.printOrgs ("outputOrgs.txt", data.getOrganizationsHash().populateVector());
-
-//        data.readTree("output.txt");
-//        data.readPeople("outputPeople.txt");
-//        data.readOrgs("outputOrgs.txt");
-
         return 0;
     }
 }

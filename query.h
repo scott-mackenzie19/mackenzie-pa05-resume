@@ -5,6 +5,9 @@
 #ifndef INC_21F_FINAL_PROJ_TEMPLATE_QUERY_H
 #define INC_21F_FINAL_PROJ_TEMPLATE_QUERY_H
 #include "rwfile.h"
+#include "include/rapidjson/document.h"
+namespace fs = std::filesystem;
+using namespace rapidjson;
 
 class query {
 private:

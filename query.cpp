@@ -38,10 +38,149 @@ void query::handleBool() {
     cout << "Enter your search term.";
     rwfile data;
     string query;
+    vector <article> artv;
     while (cin >> query) {
         Porter2Stemmer::trim(query);
         Porter2Stemmer::stem(query);
         if (query == "and") {
+            string and1;
+            string and2;
+            cin >> and1;
+            cin >> and2;
+            Porter2Stemmer::trim(and1);
+            Porter2Stemmer::stem(and2);
+            Porter2Stemmer::trim(and1);
+            Porter2Stemmer::stem(and2);
+
+            unordered_map<string, article> temp1 = data.getTree().find(and1);
+            unordered_map<string, article> temp2 = data.getTree().find(and2);
+            unordered_map<string, article> ::iterator ptr;
+
+            if (!data.getTree().contains(and1) || !data.getTree().contains(and2)) {
+                cout << "no documents" << endl;
+                menu();
+            }
+            vector <article> results1;
+            vector <article> results2;
+            for (ptr = temp1.begin(); ptr != temp1.end(); ptr++) {
+                FILE* fp = fopen(ptr->second.getPath().c_str(), "rb");
+                char buffer [35540];
+                if (fp == nullptr) {
+                    cout << ptr->second.getPath() << endl;
+                    continue;
+                }
+                FileReadStream ifss(fp, buffer, sizeof(buffer));
+                Document document;
+                document.ParseStream(ifss);
+                article art1; //article object created
+                string paperID = document["uuid"].GetString();
+                string titleName = document["title"].GetString();
+                string body_text = document["text"].GetString();
+                art1.setID(paperID); //ID set in article object
+                art1.setTitle(titleName); //title set in article object
+                art1.setBody(body_text); //body set in article object
+                art1.setNum(ptr->second.getNumOccurences());
+                results1.emplace_back(art1);
+                fclose(fp);
+            }
+            for (ptr = temp2.begin(); ptr!= temp2.end(); ptr++) {
+                FILE* fp = fopen(ptr->second.getPath().c_str(), "rb");
+                char buffer [35540];
+                if (fp == nullptr) {
+                    cout << ptr->second.getPath() << endl;
+                    continue;
+                }
+                FileReadStream ifss(fp, buffer, sizeof(buffer));
+                Document document;
+                document.ParseStream(ifss);
+                article art1; //article object created
+                string paperID = document["uuid"].GetString();
+                string titleName = document["title"].GetString();
+                string body_text = document["text"].GetString();
+                art1.setID(paperID); //ID set in article object
+                art1.setTitle(titleName); //title set in article object
+                art1.setBody(body_text); //body set in article object
+                art1.setNum(ptr->second.getNumOccurences());
+                results2.emplace_back(art1);
+                fclose(fp);
+            }
+            for (int i = 0; i < results1.size(); i++) {
+                for (int j = 0; j < results2.size(); i++) {
+                    if (results1[i] == results2 [j]) artv.emplace_back(results1[i]);
+                }
+            }
+
+        } else if (query == "or") {
+            string or1;
+            string or2;
+            cin >> or1;
+            cin >> or2;
+            unordered_map<string, article> temp1 = data.getTree().find(or1);
+            unordered_map<string, article> temp2 = data.getTree().find(or2);
+            unordered_map<string, article> ::iterator ptr;
+
+            if (!data.getTree().contains(or1) && !data.getTree().contains(or2)) {
+                cout << "no documents" << endl;
+                menu();
+            }
+            vector <article> results1;
+            vector <article> results2;
+            for (ptr = temp1.begin(); ptr != temp1.end(); ptr++) {
+                FILE* fp = fopen(ptr->second.getPath().c_str(), "rb");
+                char buffer [35540];
+                if (fp == nullptr) {
+                    cout << ptr->second.getPath() << endl;
+                    continue;
+                }
+                FileReadStream ifss(fp, buffer, sizeof(buffer));
+                Document document;
+                document.ParseStream(ifss);
+                article art1; //article object created
+                string paperID = document["uuid"].GetString();
+                string titleName = document["title"].GetString();
+                string body_text = document["text"].GetString();
+                art1.setID(paperID); //ID set in article object
+                art1.setTitle(titleName); //title set in article object
+                art1.setBody(body_text); //body set in article object
+                art1.setNum(ptr->second.getNumOccurences());
+                results1.emplace_back(art1);
+                fclose(fp);
+            }
+            for (ptr = temp2.begin(); ptr!= temp2.end(); ptr++) {
+                FILE* fp = fopen(ptr->second.getPath().c_str(), "rb");
+                char buffer [35540];
+                if (fp == nullptr) {
+                    cout << ptr->second.getPath() << endl;
+                    continue;
+                }
+                FileReadStream ifss(fp, buffer, sizeof(buffer));
+                Document document;
+                document.ParseStream(ifss);
+                article art1; //article object created
+                string paperID = document["uuid"].GetString();
+                string titleName = document["title"].GetString();
+                string body_text = document["text"].GetString();
+                art1.setID(paperID); //ID set in article object
+                art1.setTitle(titleName); //title set in article object
+                art1.setBody(body_text); //body set in article object
+                art1.setNum(ptr->second.getNumOccurences());
+                results2.emplace_back(art1);
+                fclose(fp);
+            }
+            for (int i = 0; i < results1.size(); i++) {
+                for (int j = 0; j < results2.size(); j++)
+                    if (results1[i] == results2[j]) results2.erase(results2.begin() + (j - 1));
+            }
+            for (int i = 0; i < results1.size(); i++) artv.emplace_back(results1[i]);
+            for (int i = 0; i < results2.size(); i++) artv.emplace_back(results2[i]);
+
+        } else if (query == "person") {
+
+        } else if (query == "org") {
+
+        } else if (query == "not") {
+
+        } else {
 
         }
     }
@@ -87,8 +226,6 @@ if (choice == 1) {
     rwfile data;
     data.loadStopWords();
     data.populate_tree(path);
-    //populate people
-    //populate orgs
 } else {
     cout << "Bad answer. Back to menu." << endl;
 }
@@ -100,8 +237,6 @@ void query::write() {
     rwfile data;
     data.loadStopWords();
     data.populate_tree(path);
-    //populate people
-    //populate orgs
     data.printTree ("output.txt", data.getTree().populateVector());
     data.printPeople ("outputPeople.txt", data.getPeopleHash().populateVector());
     data.printOrgs ("outputOrgs.txt", data.getOrganizationsHash().populateVector());
