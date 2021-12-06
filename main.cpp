@@ -13,11 +13,13 @@ int main(int argc, char** argv) {
     if (argc == 1) runCatchTests();
     else {
         string path = argv[1];
+        string output;
         rwfile data;
         data.loadStopWords();
-        data.populate_tree(path);
-        data.printTree ("output.txt", data.getTree().populateVector());
-        //data.readTree("output.txt");
+        output = argv[3];
+      //  data.populate_tree(path);
+      //  data.printTree ("output.txt", data.getTree().populateVector());
+        data.readTree(output);
         //data.readPeople("outputPeople.txt");
         //string person = "guthrie";
         //cout << data.getPeopleHash().at(person).at(0).getTitle() << endl;
@@ -30,15 +32,35 @@ int main(int argc, char** argv) {
             return 1;
         }
         unordered_map<string, article> temp = data.getTree().find(word);
+        vector<article> results;
         int count = 1;
         for (ptr = temp.begin(); ptr != temp.end(); ptr++) {
-            cout << endl << "Search Result " << count << ": " << ptr->second.getPath() << endl << endl;
+            FILE* fp = fopen(ptr->second.getPath().c_str(), "rb");
+            char buffer [35540];
+            if (fp == nullptr) {
+                cout << ptr->second.getPath() << endl;
+                continue;
+            }
+            FileReadStream ifss(fp, buffer, sizeof(buffer));
+            Document document;
+            document.ParseStream(ifss);
+            article art1; //article object created
+            string paperID = document["uuid"].GetString();
+            string titleName = document["title"].GetString();
+            string body_text = document["text"].GetString();
+            art1.setID(paperID); //ID set in article object
+            art1.setTitle(titleName); //title set in article object
+            art1.setBody(body_text); //body set in article object
+            art1.setNum(ptr->second.getNumOccurences());
+            cout << endl << "Search Result " << count << ": " << art1.getTitle() << endl << endl;
+            results.emplace_back(art1);
             count++;
+            fclose(fp);
         }
 
         //data.printTree (output, data.getTree().populateVector());
 
-       // data.printTree ("output.txt", data.getTree().populateVector());
+       // data.printTree (output, data.getTree().populateVector());
         data.printPeople ("outputPeople.txt", data.getPeopleHash().populateVector());
         data.printOrgs ("outputOrgs.txt", data.getOrganizationsHash().populateVector());
 
