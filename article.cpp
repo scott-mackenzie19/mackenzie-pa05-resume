@@ -58,7 +58,7 @@ string &article::getPath() {
     return this->path;
 }
 
-bool article::operator<(article &x) const {
+bool article::operator<(article x) const {
     if (this->numOccurences < x.numOccurences) {
         return true;
     }

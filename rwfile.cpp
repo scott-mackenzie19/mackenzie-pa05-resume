@@ -939,7 +939,7 @@ void rwfile::readTree(const string& arg) {
             //fclose(fp);
         }
         numLines++;
-        cout << numLines << endl;
+       // cout << numLines << endl;
     }
 }
 

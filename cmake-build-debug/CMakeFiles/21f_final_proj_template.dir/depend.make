@@ -41,6 +41,7 @@ CMakeFiles/21f_final_proj_template.dir/main.cpp.o: ../include/util/hash.h
 CMakeFiles/21f_final_proj_template.dir/main.cpp.o: ../include/util/string_view.h
 CMakeFiles/21f_final_proj_template.dir/main.cpp.o: ../main.cpp
 CMakeFiles/21f_final_proj_template.dir/main.cpp.o: ../porter2_stemmer.h
+CMakeFiles/21f_final_proj_template.dir/main.cpp.o: ../query.h
 CMakeFiles/21f_final_proj_template.dir/main.cpp.o: ../rwfile.h
 CMakeFiles/21f_final_proj_template.dir/main.cpp.o: ../word.h
 

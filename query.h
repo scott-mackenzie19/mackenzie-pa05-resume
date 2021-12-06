@@ -11,13 +11,17 @@ using namespace rapidjson;
 
 class query {
 private:
-
+    string path1= "output.txt";
+    string path2 = "outputPeople.txt";
+    string path3 = "outputOrgs.txt";
 public:
-    void menu();
+    void load();
     void handleBool();
     void stats();
-    void load();
     void write();
+    vector <article> findArticles (unordered_map<string, article>);
+    void display(vector<article>);
+    void menu();
 };
 
 

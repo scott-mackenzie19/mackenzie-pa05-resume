@@ -8,6 +8,7 @@
 #include "DSHash.h"
 #include <vector>
 #include <unordered_map>
+#include <algorithm>
 using namespace std;
 
 
@@ -24,7 +25,7 @@ public:
     void setTitle(string&);
     void setBody(string&);
     void setPath(string & );
-    bool operator < (article& x) const;
+    bool operator < (article) const;
     void increment();
     string& getID();
     string& getTitle();
