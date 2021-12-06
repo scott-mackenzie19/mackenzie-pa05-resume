@@ -57,6 +57,7 @@ private:
     };
     vector<HashNode*> table[TABLE_SIZE];
     F hashFunc;
+
 public:
     DSHash() {}
 

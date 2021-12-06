@@ -40,8 +40,6 @@ unordered_map
 algorithm
 -
 
-/Users/katebouis/Desktop/cs2341/21f-srch-ngn-kate-scott/catch_setup.h
-
 /Users/katebouis/Desktop/cs2341/21f-srch-ngn-kate-scott/include/rapidjson/allocators.h
 rapidjson.h
 /Users/katebouis/Desktop/cs2341/21f-srch-ngn-kate-scott/include/rapidjson/rapidjson.h
@@ -288,26 +286,6 @@ stdexcept
 string
 -
 
-/Users/katebouis/Desktop/cs2341/21f-srch-ngn-kate-scott/main.cpp
-iostream
--
-include/rapidjson/document.h
-/Users/katebouis/Desktop/cs2341/21f-srch-ngn-kate-scott/include/rapidjson/document.h
-porter2_stemmer.h
-/Users/katebouis/Desktop/cs2341/21f-srch-ngn-kate-scott/porter2_stemmer.h
-string
--
-rwfile.h
-/Users/katebouis/Desktop/cs2341/21f-srch-ngn-kate-scott/rwfile.h
-catch_setup.h
-/Users/katebouis/Desktop/cs2341/21f-srch-ngn-kate-scott/catch_setup.h
-iterator
--
-algorithm
--
-query.h
-/Users/katebouis/Desktop/cs2341/21f-srch-ngn-kate-scott/query.h
-
 /Users/katebouis/Desktop/cs2341/21f-srch-ngn-kate-scott/porter2_stemmer.h
 vector
 -
@@ -325,15 +303,7 @@ rwfile.h
 /Users/katebouis/Desktop/cs2341/21f-srch-ngn-kate-scott/rwfile.h
 include/rapidjson/document.h
 /Users/katebouis/Desktop/cs2341/21f-srch-ngn-kate-scott/include/rapidjson/document.h
-
-/Users/katebouis/Desktop/cs2341/21f-srch-ngn-kate-scott/rwfile.cpp
-rwfile.h
-/Users/katebouis/Desktop/cs2341/21f-srch-ngn-kate-scott/rwfile.h
-cctype
--
 sstream
--
-fstream
 -
 
 /Users/katebouis/Desktop/cs2341/21f-srch-ngn-kate-scott/rwfile.h

@@ -6,6 +6,7 @@
 #define INC_21F_FINAL_PROJ_TEMPLATE_QUERY_H
 #include "rwfile.h"
 #include "include/rapidjson/document.h"
+#include <sstream>
 namespace fs = std::filesystem;
 using namespace rapidjson;
 

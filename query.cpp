@@ -37,13 +37,28 @@ void query::menu() {
 
 void query::handleBool() {
     cout << "Enter your search term." << endl;
+    string queryCin;
     string query;
+    bool person = false;
+    bool org = false;
+    bool notQuery = false;
+    bool andQuery = false;
+    bool orQuery = false;
     vector <article> artv;
     vector <article> peopleVec;
     vector <article> orgVec;
     vector <article> notVec;
-    while (cin >> query) {
-        if (query != "and" && query != "or" && query != "not" && query != "person" && query != "org") {
+    char buffer[10000];
+    cin.getline(buffer, 9999, '\n');
+    cin.getline(buffer, 9999, '\n');
+    stringstream ss(buffer);
+    vector <string> queryTerms;
+    while(getline(ss, queryCin, ' ')) {
+        queryTerms.push_back(queryCin);
+    }
+    for (int i = 0; i < queryTerms.size(); i++) {
+        query = queryTerms[i];
+        if (query != "AND" && query != "OR" && query != "NOT" && query != "PERSON" && query != "ORG") {
             Porter2Stemmer::trim(query);
             Porter2Stemmer::stem(query);
 
@@ -55,11 +70,10 @@ void query::handleBool() {
 
             artv = findArticles(temp1);
 
-        } else if (query == "and") {
-            string and1;
-            string and2;
-            cin >> and1;
-            cin >> and2;
+        } else if (query == "AND") {
+            andQuery = true;
+            string and1 = queryTerms[i+1];
+            string and2 = queryTerms [i+2];
             Porter2Stemmer::trim(and1);
             Porter2Stemmer::stem(and1);
             Porter2Stemmer::trim(and2);
@@ -79,17 +93,17 @@ void query::handleBool() {
             results1 = findArticles (temp1);
             results2 = findArticles (temp2);
 
-            for (int i = 0; i < results1.size(); i++) {
-                for (int j = 0; j < results2.size(); i++) {
-                    if (results1[i] == results2 [j]) artv.emplace_back(results1[i]);
+            for (int k = 0; k < results1.size(); k++) {
+                for (int j = 0; j < results2.size(); j++) {
+                    if (results1[k] == results2 [j]) artv.emplace_back(results1[k]);
                 }
             }
+            i+=2;
 
-        } else if (query == "or") {
-            string or1;
-            string or2;
-            cin >> or1;
-            cin >> or2;
+        } else if (query == "OR") {
+            orQuery = true;
+            string or1 = queryTerms[i+1];
+            string or2 = queryTerms[i+2];
             Porter2Stemmer::trim(or1);
             Porter2Stemmer::stem(or1);
             Porter2Stemmer::trim(or2);
@@ -106,38 +120,40 @@ void query::handleBool() {
             results1= findArticles(temp1);
             results2 = findArticles (temp2);
 
-            for (int i = 0; i < results1.size(); i++) {
+            for (int k = 0; k < results1.size(); k++) {
                 for (int j = 0; j < results2.size(); j++)
-                    if (results1[i] == results2[j]) results2.erase(results2.begin() + (j - 1));
+                    if (results1[k] == results2[j]) results2.erase(results2.begin() + (j - 1));
             }
-            for (int i = 0; i < results1.size(); i++) artv.emplace_back(results1[i]);
-            for (int i = 0; i < results2.size(); i++) artv.emplace_back(results2[i]);
+            for (int k = 0; k < results1.size(); k++) artv.emplace_back(results1[k]);
+            for (int k = 0; k < results2.size(); k++) artv.emplace_back(results2[k]);
+            i = i + 2;
 
-        } else if (query == "person") {
-            string author;
-            cin >> author;
-            string wholeName = author;
-            while (cin >> author) {
-                if (author == "person" || author == "org" || author == "not") break;
-                wholeName += " " + author;
+        } else if (query == "PERSON") {
+            person = true;
+            string fullName = queryTerms[i+1];
+            i++;
+            for (int f = i+1; queryTerms[f] != "ORG" && queryTerms[f] != "NOT" && f<queryTerms.size(); f++){
+                fullName += " " + queryTerms[f];
+                i++;
             }
-            for (int i = 0; i < data.getPeopleHash().at(author).size(); i++) {
-                peopleVec.emplace_back(data.getPeopleHash().at(author).at(i));
+            for (int f = 0; f < data.getPeopleHash().at(fullName).size(); f++) {
+                peopleVec.emplace_back(data.getPeopleHash().at(fullName).at(f));
             }
-        } else if (query == "org") {
-            string org;
-            cin >> org;
-            string fullOrg = org;
-            while (cin >> org) {
-                if (org == "person" || org == "org" || org == "not") break;
-                fullOrg += " " + org;
+        } else if (query == "ORG") {
+            org = true;
+            string fullOrg = queryTerms[i+1];
+            i++;
+            for (int f = i+1; queryTerms[f] != "PERSON" && queryTerms[f] != "NOT" && f < queryTerms.size(); f++){
+                fullOrg += " " + queryTerms[f];
+                i++;
             }
-            for (int i = 0; i < data.getOrganizationsHash().at(org).size(); i++) {
-                orgVec.emplace_back(data.getOrganizationsHash().at(org).at(i));
+            for (int f = 0; f < data.getOrganizationsHash().at(fullOrg).size(); f++) {
+                orgVec.emplace_back(data.getOrganizationsHash().at(fullOrg).at(f));
             }
-        } else if (query == "not") {
-            string notString;
-            cin >> notString;
+        } else if (query == "NOT") {
+            notQuery = true;
+            string notString = queryTerms [i+1];
+            i++;
             Porter2Stemmer::trim(notString);
             Porter2Stemmer::stem(notString);
             if (!data.getTree().contains(notString)) {
@@ -145,30 +161,36 @@ void query::handleBool() {
                 menu();
             }
             unordered_map<string, article> temp1 = data.getTree().find(notString);
-
             notVec = findArticles (temp1);
         }
     }
 
 vector <article> temp;
-    for (int i = 0; i < peopleVec.size(); i++) {
-        for (int j = 0; j < artv.size(); j++) {
-            if (peopleVec[i] == artv[j]) temp.emplace_back(peopleVec[i]);
+    if (person && andQuery || person && orQuery) {
+        for (int i = 0; i < peopleVec.size(); i++) {
+            for (int j = 0; j < artv.size(); j++) {
+                if (peopleVec[i] == artv[j]) temp.emplace_back(peopleVec[i]);
+            }
         }
+        artv = temp;
+        temp.clear();
     }
-    artv = temp;
-    temp.clear();
-    for (int i = 0; i < orgVec.size(); i++) {
-        for (int j = 0; j < artv.size(); j++) {
-            if (orgVec[i] == artv[j]) temp.emplace_back(orgVec[i]);
+    else if (person) artv = peopleVec;
+    if (org && andQuery || org && orQuery) {
+        for (int i = 0; i < orgVec.size(); i++) {
+            for (int j = 0; j < artv.size(); j++) {
+                if (orgVec[i] == artv[j]) temp.emplace_back(orgVec[i]);
+            }
         }
+        artv = temp;
+        temp.clear();
     }
-    artv = temp;
-    temp.clear();
-
-    for (int i = 0; i < notVec.size(); i++) {
-        for (int j = 0; j < artv.size(); j++) {
-           if (notVec[i] == artv[j]) artv.erase(artv.begin() + (j-1));
+    else if (org) artv = orgVec;
+    if (notQuery) {
+        for (int i = 0; i < notVec.size(); i++) {
+            for (int j = 0; j < artv.size(); j++) {
+                if (notVec[i] == artv[j]) artv.erase(artv.begin() + (j - 1));
+            }
         }
     }
     sort(artv.begin(),artv.end());
@@ -176,7 +198,7 @@ vector <article> temp;
 }
 void query::stats() {
     rwfile stat1;
-    cout << "We have " << stat1.getLines() << " files loaded into the engine." << endl;
+    //cout << "We have " << stat1.getLines() << " files loaded into the engine." << endl;
     int numNodes = 0;
     ifstream input(path1);
     if (!input) exit(EXIT_FAILURE);
@@ -258,8 +280,9 @@ vector <article> query::findArticles (unordered_map<string, article> temp){
 }
 
 void query::display(vector<article> vec){
-    for (int i = 0; i < 15; i ++){
-        cout << "Search Result " << i << ": " << vec[i].getTitle() << endl;
+
+    for (int i = 0; i < 15 && i < vec.size(); i ++){
+        cout << "Search Result " << i+1 << ": " << vec[i].getTitle() << endl;
     }
     cout << "Select an article # or press '0' to return to menu." << endl;
     int artChoice;
