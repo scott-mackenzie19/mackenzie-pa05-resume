@@ -31,6 +31,7 @@ private:
     DSAvlTree<string, unordered_map<string, article>> wordTree;
     DSHash<string, vector <article>> People;
     DSHash<string, vector<article>> Organizations;
+    int lines;
 
 public:
     void setPeople(DSHash<string, vector<article>>&);
@@ -53,6 +54,7 @@ public:
     void readPeople(string);
     void readOrgs(string);
     void loadStopWords();
+    int getLines();
 };
 
 

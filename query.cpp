@@ -37,9 +37,6 @@ void query::menu() {
 void query::handleBool() {
 
 }
-void query::go() {
-
-}
 void query::stats() {
 
 }

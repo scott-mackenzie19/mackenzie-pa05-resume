@@ -12,7 +12,6 @@ private:
 public:
     void menu();
     void handleBool();
-    void go();
     void stats();
     void load();
     void write();

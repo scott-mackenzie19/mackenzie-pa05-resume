@@ -935,9 +935,11 @@ void rwfile::readTree(const string& arg) {
              */
             unordered_map<string, article> index_me;
             wordTree.insert(temp, index_me).insert(make_pair(art1.getID(), art1));
+            //fclose(fp);
         }
         numLines++;
         cout << numLines << endl;
+        lines = numLines;
     }
 }
 
@@ -1010,4 +1012,8 @@ void rwfile::readOrgs(string arg) {
             fclose(fp);
         }
     }
+}
+
+int rwfile::getLines() {
+    return lines;
 }

@@ -1,0 +1,3 @@
+/Users/katebouis/Desktop/cs2341/21f-srch-ngn-kate-scott/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/Users/katebouis/Desktop/cs2341/21f-srch-ngn-kate-scott/cmake-build-debug/CMakeFiles/edit_cache.dir
+/Users/katebouis/Desktop/cs2341/21f-srch-ngn-kate-scott/cmake-build-debug/CMakeFiles/21f_final_proj_template.dir
