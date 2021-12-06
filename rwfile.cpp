@@ -911,11 +911,12 @@ void rwfile::readTree(const string& arg) {
             art1.setPath(path);
             art1.setID(ID);
             unordered_map<string, article> index_me;
-            cout << temp << endl;
+         //   cout << temp << endl;
             wordTree.insert(temp, index_me).insert(make_pair(art1.getID(), art1));
         }
         numLines++;
     }
+    input.close();
 }
 
 void rwfile::readPeople(string arg) {
@@ -930,6 +931,9 @@ void rwfile::readPeople(string arg) {
         while (getline(ss, temp2, ':')) {
             string path = temp2.substr(0, temp2.find(':'));
             FILE *fp = fopen(path.c_str(), "rb");
+            if (fp == nullptr) {
+                continue;
+            }
             char buffer[35540];
             FileReadStream ifss(fp, buffer, sizeof(buffer));
             Document document;
@@ -946,7 +950,6 @@ void rwfile::readPeople(string arg) {
             art1.setBody(body_text); //body set in article object
             string filePath = path;
             art1.setPath(filePath);
-
             addPeople(temp, art1);
             fclose(fp);
         }

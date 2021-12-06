@@ -23,7 +23,7 @@ int main(int argc, char** argv) {
 //        Porter2Stemmer::trim(word);
 //        Porter2Stemmer::stem(word);
 //        if (!data.getTree().contains(word)) {
-//            cout << "no documents" << endl;
+//            cout << "no docum1ents" << endl;
 //            return 1;
 //        }
 //        data.printTree ("output.txt", data.getTree().populateVector());

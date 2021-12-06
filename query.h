@@ -12,9 +12,9 @@ using namespace rapidjson;
 
 class query {
 private:
-    string path1= "output.txt";
-    string path2 = "outputPeople.txt";
-    string path3 = "outputOrgs.txt";
+    string path1= "/mnt/c/temp/output3.txt";
+    string path2 = "/mnt/c/temp/output2.txt";
+    string path3 = "/mnt/c/temp/output.txt";
     rwfile data;
 public:
     void load();
