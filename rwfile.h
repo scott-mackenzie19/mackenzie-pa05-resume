@@ -48,8 +48,6 @@ public:
     void printOrgs(string, vector<pair<string, vector <article>>>);
     DSAvlTree<string, unordered_map<string, article>>& getTree();
     void set_tree( DSAvlTree<string, unordered_map<string, article>>& tree);
-    // get people
-    // get orgs
     void readTree(const string&);
     void readPeople(string);
     void readOrgs(string);
