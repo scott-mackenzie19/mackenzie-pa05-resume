@@ -16,6 +16,7 @@ int main(int argc, char** argv) {
     else {
         query q;
         q.menu();
+
 //        rwfile data;
 //        unordered_map<string, article> ::iterator ptr;
 //        string word = argv[2];
@@ -25,6 +26,10 @@ int main(int argc, char** argv) {
 //            cout << "no documents" << endl;
 //            return 1;
 //        }
+//        data.printTree ("output.txt", data.getTree().populateVector());
+//        data.printPeople ("outputPeople.txt", data.getPeopleHash().populateVector());
+//        data.printOrgs ("outputOrgs.txt", data.getOrganizationsHash().populateVector());
+//
 //        unordered_map<string, article> temp = data.getTree().find(word);
 //        vector<article> results;
 //        int count = 1;
@@ -53,9 +58,7 @@ int main(int argc, char** argv) {
 //        }
 //        sort(results.begin(),results.end());
 //
-//        //data.printTree (output, data.getTree().populateVector());
-//
-//       // data.printTree (output, data.getTree().populateVector());
+//        data.printTree ("output.txt", data.getTree().populateVector());
 //        data.printPeople ("outputPeople.txt", data.getPeopleHash().populateVector());
 //        data.printOrgs ("outputOrgs.txt", data.getOrganizationsHash().populateVector());
 //

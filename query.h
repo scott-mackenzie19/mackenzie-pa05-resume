@@ -14,6 +14,7 @@ private:
     string path1= "output.txt";
     string path2 = "outputPeople.txt";
     string path3 = "outputOrgs.txt";
+    rwfile data;
 public:
     void load();
     void handleBool();

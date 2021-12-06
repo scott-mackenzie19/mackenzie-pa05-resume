@@ -36,26 +36,22 @@ void query::menu() {
 }
 
 void query::handleBool() {
-    cout << "Enter your search term.";
-    rwfile data;
+    cout << "Enter your search term." << endl;
     string query;
     vector <article> artv;
     vector <article> peopleVec;
     vector <article> orgVec;
     vector <article> notVec;
     while (cin >> query) {
-        Porter2Stemmer::trim(query);
-        Porter2Stemmer::stem(query);
         if (query != "and" && query != "or" && query != "not" && query != "person" && query != "org") {
             Porter2Stemmer::trim(query);
             Porter2Stemmer::stem(query);
-
-            unordered_map<string, article> temp1 = data.getTree().find(query);
 
             if (!data.getTree().contains(query)) {
                 cout << "no documents" << endl;
                 menu();
             }
+            unordered_map<string, article> temp1 = data.getTree().find(query);
 
             artv = findArticles(temp1);
 
@@ -69,13 +65,14 @@ void query::handleBool() {
             Porter2Stemmer::trim(and2);
             Porter2Stemmer::stem(and2);
 
-            unordered_map<string, article> temp1 = data.getTree().find(and1);
-            unordered_map<string, article> temp2 = data.getTree().find(and2);
-
             if (!data.getTree().contains(and1) || !data.getTree().contains(and2)) {
                 cout << "no documents" << endl;
                 menu();
             }
+
+            unordered_map<string, article> temp1 = data.getTree().find(and1);
+            unordered_map<string, article> temp2 = data.getTree().find(and2);
+
             vector <article> results1;
             vector <article> results2;
 
@@ -97,13 +94,13 @@ void query::handleBool() {
             Porter2Stemmer::stem(or1);
             Porter2Stemmer::trim(or2);
             Porter2Stemmer::stem(or2);
-            unordered_map<string, article> temp1 = data.getTree().find(or1);
-            unordered_map<string, article> temp2 = data.getTree().find(or2);
-
             if (!data.getTree().contains(or1) && !data.getTree().contains(or2)) {
                 cout << "no documents" << endl;
                 menu();
             }
+            unordered_map<string, article> temp1 = data.getTree().find(or1);
+            unordered_map<string, article> temp2 = data.getTree().find(or2);
+
             vector <article> results1;
             vector <article> results2;
             results1= findArticles(temp1);
@@ -143,21 +140,15 @@ void query::handleBool() {
             cin >> notString;
             Porter2Stemmer::trim(notString);
             Porter2Stemmer::stem(notString);
-
-            unordered_map<string, article> temp1 = data.getTree().find(notString);
-
             if (!data.getTree().contains(notString)) {
                 cout << "no documents" << endl;
                 menu();
             }
+            unordered_map<string, article> temp1 = data.getTree().find(notString);
 
             notVec = findArticles (temp1);
         }
     }
-
-// go through peoplevec & artvec and delete anything not in both already
-// same w orgvec
-// go through notvec and delete anything in artv that IS in notv
 
 vector <article> temp;
     for (int i = 0; i < peopleVec.size(); i++) {
@@ -212,7 +203,6 @@ void query::load() {
 cout << "Press 1 if you would like to load from persistence files and 2 if you would like to load from files on your computer." << endl;
 int choice;
 cin >> choice;
-rwfile data;
 if (choice == 1) {
     data.readTree(path1);
     data.readPeople(path2);
@@ -233,7 +223,6 @@ void query::write() {
     cout << "Enter path to your files." << endl;
     string path;
     cin >> path;
-    rwfile data;
     data.loadStopWords();
     data.populate_tree(path);
     data.printTree (path1, data.getTree().populateVector());
