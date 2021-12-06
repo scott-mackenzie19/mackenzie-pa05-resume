@@ -56,6 +56,18 @@ int main(int argc, char** argv) {
             count++;
             fclose(fp);
         }
+        sort(results.begin(),results.end());
+
+        //data.printTree (output, data.getTree().populateVector());
+
+       // data.printTree (output, data.getTree().populateVector());
+        data.printPeople ("outputPeople.txt", data.getPeopleHash().populateVector());
+        data.printOrgs ("outputOrgs.txt", data.getOrganizationsHash().populateVector());
+
+//        data.readTree("output.txt");
+//        data.readPeople("outputPeople.txt");
+//        data.readOrgs("outputOrgs.txt");
+
         return 0;
     }
 }

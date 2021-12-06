@@ -24,6 +24,7 @@ public:
     void setTitle(string&);
     void setBody(string&);
     void setPath(string & );
+    bool operator < (article& x) const;
     void increment();
     string& getID();
     string& getTitle();

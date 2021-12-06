@@ -87,7 +87,6 @@ void rwfile::parse(const string &filename) {
         counter++;
     }
     lines = counter;
-
     for (rapidjson::Value::ConstValueIterator itr = holder.Begin(); itr != holder.End(); ++itr) {
         const rapidjson::Value &hold = *itr;
         // cout<<"Author "<<counter<<endl;

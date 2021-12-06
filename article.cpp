@@ -57,3 +57,12 @@ void article::setPath(string &filepath) {
 string &article::getPath() {
     return this->path;
 }
+
+bool article::operator<(article &x) const {
+    if (this->numOccurences < x.numOccurences) {
+        return true;
+    }
+    else {
+        return false;
+    }
+}
