@@ -14,9 +14,10 @@ int main(int argc, char** argv) {
     else {
         string path = argv[1];
         rwfile data;
-        data.loadStopWords();
-        data.populate_tree(path);
+      //  data.loadStopWords();
+       // data.populate_tree(path);
         string output = argv[3];
+        data.readTree(output);
         //data.readPeople(output);
         //cout << data.getPeopleHash().at("walmart") << endl;
         string pathius = argv[3];
@@ -31,11 +32,11 @@ int main(int argc, char** argv) {
         unordered_map<string, article> temp = data.getTree().find(word);
         int count = 1;
         for (ptr = temp.begin(); ptr != temp.end(); ptr++) {
-            cout << endl << "Search Result " << count << ": " << ptr->second.getTitle() << endl << endl;
+            cout << endl << "Search Result " << count << ": " << ptr->second.getPath() << endl << endl;
             count++;
         }
 
-        data.printTree (output, data.getTree().populateVector());
+        //data.printTree (output, data.getTree().populateVector());
 
 //        data.printTree ("output.txt", data.getTree().populateVector());
 //        data.printPeople ("outputPeople.txt", data.getPeopleHash().populateVector());

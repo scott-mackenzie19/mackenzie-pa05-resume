@@ -86,7 +86,6 @@ void rwfile::parse(const string &filename) {
         }
         counter++;
     }
-
     for (rapidjson::Value::ConstValueIterator itr = holder.Begin(); itr != holder.End(); ++itr) {
         const rapidjson::Value &hold = *itr;
         // cout<<"Author "<<counter<<endl;
@@ -156,7 +155,7 @@ void rwfile::tokenize_file(article &file) {
             }
             Porter2Stemmer::stem(word);
             unordered_map<string, article> value;
-            wordTree.insert(word, value).insert(make_pair(file.getID(), temp1));
+           // wordTree.insert(word, value).insert(make_pair(file.getID(), temp1));
 
             unordered_map<string, article>*  ptr= &wordTree.insert(word, value);
             if (ptr->empty()) { //if map of word empty
@@ -194,7 +193,7 @@ void rwfile::printTree(string arg, vector<pair<string, unordered_map<string, art
         output << vec[i].first << ";";
         auto it = vec[i].second.begin();
         while (it != vec[i].second.end()) {
-            output << it->second.getPath() << "~" << it->second.getNumOccurences() << ":";
+            output << it->second.getPath() << "~" << it->second.getNumOccurences() << ":" << it->second.getID() << ":";
             ++it;
         }
         output << endl;
@@ -881,20 +880,40 @@ void rwfile::loadStopWords() {
     }
 }
 
-void rwfile::readTree(string arg) {
-    ifstream input(arg);
-    if (!input) exit(EXIT_FAILURE);
+
+
+/**
+  * below was throwing errors so it's commented out so we can fix other problems before coming back to it
+  */
+
+void rwfile::readTree(const string& arg) {
+    ifstream input (arg);
+    if (!input) exit (EXIT_FAILURE);
+    int numLines = 0;
     string str;
-    while (getline(input, str)) {
+    while (getline (input, str)) {
         stringstream ss(str);
         string temp;
-        getline(ss, temp, ';');
+        getline(ss, temp, ';'); //word
         string temp2;
-        while (getline(ss, temp2, ':')) {
-            string path = temp2.substr(0, temp2.find('~'));
-            int numOccurrences = stoi(temp2.substr(temp2.find('~') + 1));
-            FILE *fp = fopen(path.c_str(), "rb");
-            char buffer[35540];
+        while (ss.good()) {
+            string path;
+            string ID;
+            string tempNum;
+            getline(ss, path, '~');
+            getline(ss, tempNum, ':');
+            //cout << tempNum << endl;
+            getline(ss, ID, ':');
+           // cout << temp2.substr(temp2.find('~') + 1) << endl;
+            article art1;
+           if (!tempNum.empty()) {
+               int numOccurrences = stoi(tempNum);
+               art1.setNum(numOccurrences);
+           }
+            art1.setPath(path);
+            art1.setID(ID);
+            /*FILE* fp = fopen(path.c_str(), "rb");
+            char buffer [35540];
             FileReadStream ifss(fp, buffer, sizeof(buffer));
             Document document;
             document.ParseStream(ifss);
@@ -913,9 +932,12 @@ void rwfile::readTree(string arg) {
             art1.setPath(filePath);
 
             // scott: insert values here, temp2 contains value
+             */
             unordered_map<string, article> index_me;
             wordTree.insert(temp, index_me).insert(make_pair(art1.getID(), art1));
         }
+        numLines++;
+        cout << numLines << endl;
     }
 }
 
@@ -961,9 +983,11 @@ void rwfile::readOrgs(string arg) {
         stringstream ss(str);
         string temp;
         getline(ss, temp, ';');
-        string temp2;
-        while (getline(ss, temp2, ':')) {
-            string path = temp2.substr(0, temp2.find(':'));
+        while (ss.good()) {
+            string path;
+            string ID;
+            getline(ss, path, ':');
+            getline(ss, ID, ':');
             FILE *fp = fopen(path.c_str(), "rb");
             char buffer[35540];
             FileReadStream ifss(fp, buffer, sizeof(buffer));
@@ -983,6 +1007,7 @@ void rwfile::readOrgs(string arg) {
             art1.setPath(filePath);
 
             addOrg(temp, art1);
+            fclose(fp);
         }
     }
 }
