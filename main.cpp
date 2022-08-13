@@ -12,10 +12,10 @@ namespace fs = std::filesystem;
 using namespace rapidjson;
 
 int main(int argc, char** argv) {
-    if (argc == 1) runCatchTests();
-    else {
+    if (argc == 1) {
         query q;
         q.menu();
+    }
 
 //        rwfile data;
 //        unordered_map<string, article> ::iterator ptr;
@@ -68,4 +68,3 @@ int main(int argc, char** argv) {
 
         return 0;
     }
-}
